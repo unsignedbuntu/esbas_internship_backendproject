@@ -6,6 +6,7 @@ This project is part of an internship at ESBAŞ, focusing on integrating a proxi
 
 Describe briefly what the project aims to achieve and its significance.
 
+
 ## Features
 
 - **Proximity Card Integration**: Explain how the proximity card reader is integrated with the backend.
