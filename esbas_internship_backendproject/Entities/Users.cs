@@ -1,8 +1,9 @@
 ﻿namespace esbas_internship_backendproject.Entities
 {
-    using Microsoft.Extensions.Configuration.UserSecrets;
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Users
     {
 #nullable disable
@@ -15,9 +16,19 @@
         public int Age { get; set; }
         public string Gender { get; set; }
 
-        public bool Status { get; set; }       
- 
-       public ICollection<Events_Users> Events { get; set; }
+        public bool Status { get; set; }
+
+        [ForeignKey("User_Department")]
+        public int User_DepartmentID { get; set; }
+
+
+        [ForeignKey("User_Gender")]
+        public int User_GenderID { get; set; }
+
+
+        [ForeignKey("User_IsOfficeEmployee")]
+        public int User_IsOfficeEmployeeID { get; set; }
+        // public ICollection<Events_Users> Events { get; set; }
         public Users() { }
     }
 }

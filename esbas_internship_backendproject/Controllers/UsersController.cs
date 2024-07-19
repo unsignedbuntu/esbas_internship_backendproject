@@ -6,7 +6,7 @@ using Microsoft.Extensions.Logging;
 namespace esbas_internship_backendproject.Controllers
 {
     [ApiController]
-    [Route("api/users")]
+    [Route("api")]
     public class UsersController : ControllerBase
     {
         private readonly EsbasDbContext _context;
@@ -22,8 +22,6 @@ namespace esbas_internship_backendproject.Controllers
         public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
             var users = await _context.Users
-            .Include(u => u.Events)
-            .ThenInclude(eu => eu.Event)
             .ToListAsync();
 
             return Ok(users);

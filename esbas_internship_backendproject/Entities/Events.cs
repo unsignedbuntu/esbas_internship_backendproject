@@ -2,6 +2,8 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class Events
     {
 #nullable disable
@@ -13,7 +15,13 @@
         public DateTime EventDateTime { get; set; }
         public bool Status { get; set; } = true;
 
-        public ICollection<Events_Users> Users { get; set; }
+        [ForeignKey("Event_LocationID")]
+        public int Event_LocationID {  get; set; }
+
+        [ForeignKey("Event_TypeID")]
+        public int Event_TypeID { get; set; }
+
+       // public ICollection<Events_Users> Users { get; set; }
    
 
         public Events() { }

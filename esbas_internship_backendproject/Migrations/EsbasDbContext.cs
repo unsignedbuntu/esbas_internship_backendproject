@@ -22,86 +22,255 @@ namespace esbas_internship_backendproject.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Event_Type", b =>
+            {
+                b.Property<int>("Event_TypeID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Event_TypeID"), 1L, 1);
+
+                b.Property<string>("Event_Type_Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
+
+                b.HasKey("Event_TypeID");
+
+                b.ToTable("Event_Type");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Event_Location", b =>
+            {
+                b.Property<int>("Event_LocationID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Event_LocationID"), 1L, 1);
+
+                b.Property<string>("Event_Location_Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
+
+                b.HasKey("Event_LocationID");
+
+                b.ToTable("Event_Location");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.User_Department", b =>
+            {
+                b.Property<int>("User_DepartmentID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_DepartmentID"), 1L, 1);
+
+                b.Property<string>("User_Department_Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
+
+                b.HasKey("User_DepartmentID");
+
+                b.ToTable("User_Department");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.User_IsOfficeEmployee", b =>
+            {
+                b.Property<int>("User_IsOfficeEmployeeID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_IsOfficeEmployeeID"), 1L, 1);
+
+                b.Property<string>("User_IsOfficeEmployee_Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
+
+                b.HasKey("User_IsOfficeEmployeeID");
+
+                b.ToTable("User_IsOfficeEmployee");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.User_Gender", b =>
+            {
+                b.Property<int>("User_GenderID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("User_GenderID"), 1L, 1);
+
+                b.Property<string>("User_Gender_Name")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
+
+                b.HasKey("User_GenderID");
+
+                b.ToTable("User_Gender");
+            });
+
             modelBuilder.Entity("esbas_internship_backendproject.Entities.Events", b =>
-                {
-                    b.Property<int>("EventID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("EventID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventID"), 1L, 1);
 
-                    b.Property<DateTime>("EventDateTime")
-                        .HasColumnType("datetime2");
+                b.Property<string>("EventName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("EventName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("EventType")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(50)");
 
-                    b.Property<string>("EventType")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Location")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(200)");
 
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<DateTime>("EventDateTime")
+                    .HasColumnType("datetime2");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("BIT");
+                b.Property<int>("Event_TypeID")
+                    .HasColumnType("int");
 
-                    b.HasKey("EventID");
+                b.Property<int>("Event_LocationID")
+                    .HasColumnType("int");
 
-                    b.ToTable("Events", (string)null);
-                });
+                b.HasKey("EventID");
 
-            modelBuilder.Entity("esbas_internship_backendproject.Entities.Events_Users", b =>
-                {
-                    b.Property<int>("Events_UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                b.HasIndex("Event_TypeID");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
+                b.HasIndex("Event_LocationID");
 
-                    b.Property<int>("EventID")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Events_UserID")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("BIT");
-
-                    b.HasKey("Events_UserID");
-
-                    b.ToTable("Events_Users", (string)null);
-                });
+                b.ToTable("Events");
+            });
 
             modelBuilder.Entity("esbas_internship_backendproject.Entities.Users", b =>
-                {
-                    b.Property<int>("UserID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+            {
+                b.Property<int>("UserID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
 
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
+                b.Property<string>("FullName")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("Department")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<string>("Department")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(100)");
 
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<bool>("IsOfficeEmployee")
+                    .HasColumnType("bit");
 
-                    b.Property<string>("Gender")
-                        .HasColumnType("nvarchar(max)");
+                b.Property<int>("Age")
+                    .HasColumnType("int");
 
-                    b.Property<bool>("IsOfficeEmployee")
-                        .HasColumnType("bit");
+                b.Property<string>("Gender")
+                    .IsRequired()
+                    .HasColumnType("nvarchar(10)");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("BIT");
+                b.Property<int>("User_DepartmentID")
+                    .HasColumnType("int");
 
-                    b.HasKey("UserID");
+                b.Property<int>("User_IsOfficeEmployeeID")
+                    .HasColumnType("int");
 
-                    b.ToTable("Users", (string)null);
-                });
+                b.Property<int>("User_GenderID")
+                    .HasColumnType("int");
+
+                b.HasKey("UserID");
+
+                b.HasIndex("User_DepartmentID");
+
+                b.HasIndex("User_IsOfficeEmployeeID");
+
+                b.HasIndex("User_GenderID");
+
+                b.ToTable("Users");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Events_Users", b =>
+            {
+                b.Property<int>("Events_UserID")
+                    .ValueGeneratedOnAdd()
+                    .HasColumnType("int");
+
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Events_UserID"), 1L, 1);
+
+                b.Property<int>("EventID")
+                    .HasColumnType("int");
+
+                b.Property<int>("UserID")
+                    .HasColumnType("int");
+
+                b.HasKey("Events_UserID");
+
+                b.HasIndex("EventID");
+
+                b.HasIndex("UserID");
+
+                b.ToTable("Events_Users");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Events", b =>
+            {
+                b.HasOne("esbas_internship_backendproject.Entities.Event_Type", "Event_Type")
+                    .WithMany()
+                    .HasForeignKey("Event_TypeID")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.HasOne("esbas_internship_backendproject.Entities.Event_Location", "Event_Location")
+                    .WithMany()
+                    .HasForeignKey("Event_LocationID")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.Navigation("Event_Type");
+
+                b.Navigation("Event_Location");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Users", b =>
+            {
+                b.HasOne("esbas_internship_backendproject.Entities.User_Department", "User_Department")
+                    .WithMany()
+                    .HasForeignKey("User_DepartmentID")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.HasOne("esbas_internship_backendproject.Entities.User_IsOfficeEmployee", "User_IsOfficeEmployee")
+                    .WithMany()
+                    .HasForeignKey("User_IsOfficeEmployeeID")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.HasOne("esbas_internship_backendproject.Entities.User_Gender", "User_Gender")
+                    .WithMany()
+                    .HasForeignKey("User_GenderID")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.Navigation("User_Department");
+
+                b.Navigation("User_IsOfficeEmployee");
+
+                b.Navigation("User_Gender");
+            });
+
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Events_Users", b =>
+            {
+                b.HasOne("esbas_internship_backendproject.Entities.Events", "Event")
+                    .WithMany("Events_Users")
+                    .HasForeignKey("EventID")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.HasOne("esbas_internship_backendproject.Entities.Users", "User")
+                    .WithMany("Events_Users")
+                    .HasForeignKey("UserID")
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                b.Navigation("Event");
+
+                b.Navigation("User");
+            });
 #pragma warning restore 612, 618
         }
     }

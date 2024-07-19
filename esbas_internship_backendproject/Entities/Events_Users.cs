@@ -16,6 +16,10 @@
         [ForeignKey("UserId")]
         public int UserID { get; set; }
         public bool Status { get; set; } = true;
+        
+        public ICollection<Events_Users> Users { get; set; }
+
+        public ICollection<Events_Users> Events { get; set; }
 
         public Events Event { get; set; }
 

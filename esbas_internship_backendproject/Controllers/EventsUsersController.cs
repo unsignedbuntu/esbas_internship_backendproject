@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace esbas_internship_backendproject.Controllers
 {
     [ApiController]
-    [Route("api/eventsusers")]
+    [Route("api")]
     public class EventsUsersController : Controller
     {
         private readonly EsbasDbContext _context;

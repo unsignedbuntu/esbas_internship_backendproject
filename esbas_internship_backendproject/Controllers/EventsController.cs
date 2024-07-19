@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace esbas_internship_backendproject.Controllers
 {
     [ApiController]
-    [Route("api/events")]
+    [Route("api")]
     public class EventsController : Controller
     {
         private readonly EsbasDbContext _context;
@@ -20,8 +20,6 @@ namespace esbas_internship_backendproject.Controllers
         public async Task<ActionResult<IEnumerable<Events>>> GetEvents()
         {
             var events = await _context.Events
-            .Include(e => e.Users)
-            .ThenInclude(eu => eu.User)
             .ToListAsync();
 
             return Ok(events);
