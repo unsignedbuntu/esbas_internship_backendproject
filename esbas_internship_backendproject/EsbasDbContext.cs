@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
 using System.Reflection.Emit;
+using System.Security.Cryptography.X509Certificates;
 
 namespace esbas_internship_backendproject
 {
@@ -14,7 +15,7 @@ namespace esbas_internship_backendproject
         public DbSet<Event_Type> Event_Type { get; set; }
         public DbSet<Event_Location> Event_Location { get; set; }
         public DbSet<User_Department> User_Department {  get; set; }
-        public DbSet<User_IsOfficeEmployee> IsOfficeEmployee { get; set; } 
+        public DbSet<User_IsOfficeEmployee> User_IsOfficeEmployee { get; set; } 
         public DbSet<User_Gender> User_Gender { get; set; }
 
         public EsbasDbContext(DbContextOptions<EsbasDbContext> options) : base(options)
@@ -48,23 +49,44 @@ namespace esbas_internship_backendproject
             Modelbuilder.Entity<User_Gender>().ToTable("User_Gender");
 
             Modelbuilder.Entity<Events_Users>()
-           .HasKey(eu => new { eu.EventID, eu.UserID });
+                 .HasOne(eu => eu.Event)
+                 .WithMany(e => e.Events_Users)
+                 .HasForeignKey(eu => eu.EventID);
 
-           /*Modelbuilder.Entity<Events_Users>()
-                .HasOne(eu => eu.Event)
-                .WithMany(e => e.Users)
-                .HasForeignKey(eu => eu.EventID);
+             Modelbuilder.Entity<Events_Users>()
+                 .HasOne(eu => eu.User)
+                 .WithMany(e => e.Event_Users)
+                 .HasForeignKey(eu => eu.UserID);
 
-            Modelbuilder.Entity<Events_Users>()
-                .HasOne(eu => eu.User)
-                .WithMany(u => u.Events)
-                .HasForeignKey(eu => eu.UserID);
-
-            Modelbuilder.Entity<Events>()
-                .HasKey(e => new { e.EventTypeID, e.EventLocationID });
+             Modelbuilder.Entity<Events>()
+                 .HasKey(e => new { e.Event_TypeID, e.Event_LocationID });
 
             Modelbuilder.Entity<Events>()
-                .HasOne(e => e.)*/
+                .HasOne(e => e.Event_Type)
+                .WithMany()
+                .HasForeignKey(e => e.Event_TypeID);
+
+            Modelbuilder.Entity<Events>()
+                .HasOne(e => e.Event_Location)
+                .WithMany()
+                .HasForeignKey(el => el.Event_LocationID);
+
+
+            Modelbuilder .Entity<Users>()
+                .HasOne(u => u.User_Gender)
+                .WithMany()
+                .HasForeignKey(u => u.User_GenderID);
+
+            Modelbuilder.Entity<Users>()
+                .HasOne(u => u.User_Department)
+                .WithMany()
+                .HasForeignKey(u => u.User_DepartmentID);
+
+            Modelbuilder.Entity<Users>()
+                .HasOne(u => u.User_IsOfficeEmployee)
+                .WithMany()
+                .HasForeignKey(u => u.User_IsOfficeEmployeeID);
+
         }
     }
 }

@@ -9,26 +9,27 @@
 #nullable disable
         [Key]
         public int UserID { get; set; }
-
         public string FullName { get; set; }
         public string Department { get; set; }
-        public Boolean IsOfficeEmployee { get; set; }
+        public bool IsOfficeEmployee { get; set; }
         public int Age { get; set; }
         public string Gender { get; set; }
-
         public bool Status { get; set; }
 
-        [ForeignKey("User_Department")]
         public int User_DepartmentID { get; set; }
-
-
-        [ForeignKey("User_Gender")]
         public int User_GenderID { get; set; }
-
-
-        [ForeignKey("User_IsOfficeEmployee")]
         public int User_IsOfficeEmployeeID { get; set; }
-        // public ICollection<Events_Users> Events { get; set; }
+
+        [ForeignKey("User_DepartmentID")]
+        public User_Department User_Department { get; set; }
+
+        [ForeignKey("User_GenderID")]
+        public User_Gender User_Gender { get; set; }
+
+        [ForeignKey("User_IsOfficeEmployeeID")]
+        public User_IsOfficeEmployee User_IsOfficeEmployee { get; set; }
+
+        public ICollection<Events_Users> Event_Users { get; set; }
         public Users() { }
     }
 }

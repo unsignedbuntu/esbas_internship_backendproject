@@ -11,7 +11,7 @@
         public int Event_LocationID { get; set; }
         
         public string Event_Location_Name { get; set; }
-
+        public bool Status { get; set; } = true;
         public Event_Location() { }
     }
 }

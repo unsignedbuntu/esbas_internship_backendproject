@@ -8,6 +8,7 @@
         [Key]
         public int User_DepartmentID {  get; set; }
         public string User_Department_Name { get; set; }
+        public bool Status { get; set; } = true;
 
         public User_Department() { }
     }

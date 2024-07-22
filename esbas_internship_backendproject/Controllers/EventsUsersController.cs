@@ -18,7 +18,7 @@ namespace esbas_internship_backendproject.Controllers
         [Produces("application/json")]
         public async Task<ActionResult<IEnumerable<Events_Users>>> GetEventsUsers()
         {
-            var query = from eu in _context.Events_Users
+            /*var query = from eu in _context.Events_Users
                         join e in _context.Events on eu.EventID equals e.EventID
                         join u in _context.Users on eu.UserID equals u.UserID
                         select new Events_Users
@@ -27,9 +27,13 @@ namespace esbas_internship_backendproject.Controllers
                             UserID = u.UserID,
                             EventID = e.EventID,
                         };
-
-            var eventUsers = await query.ToListAsync();
-            return Ok(eventUsers);
+            */
+            var eventsUsers = await _context.Events_Users
+       .Include(eu => eu.Event)
+       .Include(eu => eu.User)
+       .ToListAsync();
+           
+            return Ok(eventsUsers);
         }
 
         [HttpPost("eventsusers")]

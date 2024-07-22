@@ -10,6 +10,8 @@
         
         public string Event_Type_Name { get; set; }
 
+        public bool Status { get; set; } = true;
+
         public Event_Type() { }
     }
 }
