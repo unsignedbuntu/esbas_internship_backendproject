@@ -14,27 +14,19 @@ namespace esbas_internship_backendproject.Controllers
         {
             _context = context;
         }
+
         [HttpGet("eventsusers")]
         [Produces("application/json")]
-        public async Task<ActionResult<IEnumerable<Events_Users>>> GetEventsUsers()
+        public async Task<ActionResult<IEnumerable<Events_Users>>> GetEvents_Users()
         {
-            /*var query = from eu in _context.Events_Users
-                        join e in _context.Events on eu.EventID equals e.EventID
-                        join u in _context.Users on eu.UserID equals u.UserID
-                        select new Events_Users
-                        {
-                            Events_UserID = eu.Events_UserID,
-                            UserID = u.UserID,
-                            EventID = e.EventID,
-                        };
-           */ 
-            var eventsUsers = await _context.Events_Users
+ 
+            var events_Users = await _context.Events_Users
        .Include(eu => eu.Event)
        .Include(eu => eu.User)
        .ToListAsync();
            
            
-            return Ok(eventsUsers);
+            return Ok(events_Users);
         }
 
         [HttpPost("eventsusers")]
@@ -59,7 +51,7 @@ namespace esbas_internship_backendproject.Controllers
                     throw;
                 }
             }
-            return CreatedAtAction("GetEvents_Users", new { id = events_Users.Events_UserID }, events_Users);
+            return CreatedAtAction("GetEvents_Users", new { id = events_Users.ID}, events_Users);
         }
 
         [HttpPut("eventsusers/{id}")]
@@ -67,7 +59,7 @@ namespace esbas_internship_backendproject.Controllers
         public async Task<IActionResult> PutEvents_Users(int id, [FromBody] Events_Users events_Users)
 
         {
-            if (id != events_Users.Events_UserID)
+            if (id != events_Users.ID)
             {
                 return BadRequest();
             }
@@ -112,7 +104,7 @@ namespace esbas_internship_backendproject.Controllers
         }
         private bool EventsUserExists(int id)
         {
-            return _context.Events_Users.Any(eu => eu.Events_UserID == id);
+            return _context.Events_Users.Any(eu => eu.ID == id);
         }
     }
 }

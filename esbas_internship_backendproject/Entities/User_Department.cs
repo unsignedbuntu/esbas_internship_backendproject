@@ -6,8 +6,8 @@
     {
 #nullable disable
         [Key]
-        public int User_DepartmentID {  get; set; }
-        public string User_Department_Name { get; set; }
+        public int D_ID {  get; set; }
+        public string Name { get; set; }
         public bool Status { get; set; } = true;
 
         public User_Department() { }

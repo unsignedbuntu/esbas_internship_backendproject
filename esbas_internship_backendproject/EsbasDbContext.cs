@@ -30,25 +30,23 @@ namespace esbas_internship_backendproject
             Modelbuilder.Entity<Events>().HasKey(e => e.EventID);
             Modelbuilder.Entity<Events>().ToTable("Events");
 
-            Modelbuilder.Entity<Events_Users>().HasKey(eu => eu.Events_UserID);
+            Modelbuilder.Entity<Events_Users>().HasKey(eu => eu.ID);
             Modelbuilder.Entity<Events_Users>().ToTable("Events_Users");
 
-            Modelbuilder.Entity<Event_Type>().HasKey(et  => et.Event_TypeID);
+            Modelbuilder.Entity<Event_Type>().HasKey(et  => et.T_ID);
             Modelbuilder.Entity<Event_Type>().ToTable("Event_Type");
 
-            Modelbuilder.Entity<Event_Location>().HasKey(el => el.Event_LocationID);
+            Modelbuilder.Entity<Event_Location>().HasKey(el => el.L_ID);
             Modelbuilder.Entity<Event_Location>().ToTable("Event_Location");
 
-            Modelbuilder.Entity<User_Department>().HasKey(ud => ud.User_DepartmentID);
+            Modelbuilder.Entity<User_Department>().HasKey(ud => ud.D_ID);
             Modelbuilder.Entity<User_Department>().ToTable("User_Department");
 
-            Modelbuilder.Entity<User_IsOfficeEmployee>().HasKey(uı => uı.User_IsOfficeEmployeeID);
+            Modelbuilder.Entity<User_IsOfficeEmployee>().HasKey(uı => uı.I_ID);
             Modelbuilder.Entity<User_IsOfficeEmployee>().ToTable("User_IsOfficeEmployee");
 
-            Modelbuilder.Entity<User_Gender>().HasKey(ug => ug.User_GenderID);
+            Modelbuilder.Entity<User_Gender>().HasKey(ug => ug.G_ID);
             Modelbuilder.Entity<User_Gender>().ToTable("User_Gender");
-
-          base.OnModelCreating(Modelbuilder);
 
             Modelbuilder.Entity<Events_Users>()
                  .HasOne(eu => eu.Event)
@@ -62,32 +60,33 @@ namespace esbas_internship_backendproject
                  .HasForeignKey(eu => eu.UserID);
 
 
-          /*  Modelbuilder.Entity<Events>()
-                .HasOne(e => e.Event_Type)
-                .WithMany()
-                .HasForeignKey(e => e.Event_TypeID);
+            /*  Modelbuilder.Entity<Events>()
+                  .HasOne(e => e.Event_Type)
+                  .WithMany()
+                  .HasForeignKey(e => e.Event_TypeID);
 
-            Modelbuilder.Entity<Events>()
-                .HasOne(e => e.Event_Location)
-                .WithMany()
-                .HasForeignKey(el => el.Event_LocationID);
+              Modelbuilder.Entity<Events>()
+                  .HasOne(e => e.Event_Location)
+                  .WithMany()
+                  .HasForeignKey(el => el.Event_LocationID);
 
 
-            Modelbuilder.Entity<Users>()
-                .HasOne(u => u.User_Gender)
-                .WithMany()
-                .HasForeignKey(u => u.User_GenderID);
+              Modelbuilder.Entity<Users>()
+                  .HasOne(u => u.User_Gender)
+                  .WithMany()
+                  .HasForeignKey(u => u.User_GenderID);
 
-            Modelbuilder.Entity<Users>()
-                .HasOne(u => u.User_Department)
-                .WithMany()
-                .HasForeignKey(u => u.User_DepartmentID);
+              Modelbuilder.Entity<Users>()
+                  .HasOne(u => u.User_Department)
+                  .WithMany()
+                  .HasForeignKey(u => u.User_DepartmentID);
 
-            Modelbuilder.Entity<Users>()
-                .HasOne(u => u.User_IsOfficeEmployee)
-                .WithMany()
-                .HasForeignKey(u => u.User_IsOfficeEmployeeID); */
-        
+              Modelbuilder.Entity<Users>()
+                  .HasOne(u => u.User_IsOfficeEmployee)
+                  .WithMany()
+                  .HasForeignKey(u => u.User_IsOfficeEmployeeID); */
+
+            base.OnModelCreating(Modelbuilder);
         }
     }
 }

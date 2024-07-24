@@ -15,65 +15,65 @@ namespace esbas_internship_backendproject.Migrations
                 name: "Event_Type",
                 columns: table => new
                 {
-                    Event_TypeID = table.Column<int>(type: "int", nullable: false)
+                    T_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Event_Type_Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event_Type", x => x.Event_TypeID);
+                    table.PrimaryKey("PK_Event_Type", x => x.T_ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "Event_Location",
                 columns: table => new
                 {
-                    Event_LocationID = table.Column<int>(type: "int", nullable: false)
+                    L_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Event_Location_Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                   Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Event_Location", x => x.Event_LocationID);
+                    table.PrimaryKey("PK_Event_Location", x => x.L_ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "User_Department",
                 columns: table => new
                 {
-                    User_DepartmentID = table.Column<int>(type: "int", nullable: false)
+                    D_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User_Department_Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User_Department", x => x.User_DepartmentID);
+                    table.PrimaryKey("PK_User_Department", x => x.D_ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "User_IsOfficeEmployee",
                 columns: table => new
                 {
-                    User_IsOfficeEmployeeID = table.Column<int>(type: "int", nullable: false)
+                        I_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User_IsOfficeEmployee_Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                        Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User_IsOfficeEmployee", x => x.User_IsOfficeEmployeeID);
+                    table.PrimaryKey("PK_User_IsOfficeEmployee", x => x.I_ID);
                 });
 
             migrationBuilder.CreateTable(
                 name: "User_Gender",
                 columns: table => new
                 {
-                    User_GenderID = table.Column<int>(type: "int", nullable: false)
+                    G_ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    User_Gender_Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User_Gender", x => x.User_GenderID);
+                    table.PrimaryKey("PK_User_Gender", x => x.G_ID);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,28 +82,28 @@ namespace esbas_internship_backendproject.Migrations
                 {
                     EventID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    EventName = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    EventType = table.Column<string>(type: "nvarchar(50)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(100)", nullable: false),
+                    Type = table.Column<string>(type: "nvarchar(50)", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(200)", nullable: false),
                     EventDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Event_TypeID = table.Column<int>(type: "int", nullable: false),
-                    Event_LocationID = table.Column<int>(type: "int", nullable: false),
+                    T_ID = table.Column<int>(type: "int", nullable: false),
+                    L_ID = table.Column<int>(type: "int", nullable: false),
                     Event_Status = table.Column<bool>(type: "bool", nullable: false),
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Events", x => x.EventID);
                     table.ForeignKey(
-                        name: "FK_Events_Event_Type_Event_TypeID",
-                        column: x => x.Event_TypeID,
+                        name: "FK_Events_T_ID",
+                        column: x => x.T_ID,
                         principalTable: "Event_Type",
-                        principalColumn: "Event_TypeID",
+                        principalColumn: "T_ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Events_Event_Location_Event_LocationID",
-                        column: x => x.Event_LocationID,
+                        name: "FK_Events_L_ID",
+                        column: x => x.L_ID,
                         principalTable: "Event_Location",
-                        principalColumn: "Event_LocationID",
+                        principalColumn: "L_ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -114,35 +114,35 @@ namespace esbas_internship_backendproject.Migrations
 
                     ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<UniqueId>(type: "int", nullable: false),
+                    UserID = table.Column<int>(type: "int", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Department = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     IsOfficeEmployee = table.Column<bool>(type: "bit", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(10)", nullable: false),
-                    User_DepartmentID = table.Column<int>(type: "int", nullable: false),
-                    User_IsOfficeEmployeeID = table.Column<int>(type: "int", nullable: false),
-                    User_GenderID = table.Column<int>(type: "int", nullable: false)
+                    D_ID = table.Column<int>(type: "int", nullable: false),
+                    I_ID = table.Column<int>(type: "int", nullable: false),
+                    G_ID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.UserID);
+                    table.PrimaryKey("PK_Users", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Users_User_Department_User_DepartmentID",
-                        column: x => x.User_DepartmentID,
+                        name: "FK_Users_D_ID",
+                        column: x => x.D_ID,
                         principalTable: "User_Department",
-                        principalColumn: "User_DepartmentID",
+                        principalColumn: "D_ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Users_User_IsOfficeEmployee_User_IsOfficeEmployeeID",
-                        column: x => x.User_IsOfficeEmployeeID,
+                        name: "FK_Users_I_ID",
+                        column: x => x.I_ID,
                         principalTable: "User_IsOfficeEmployee",
-                        principalColumn: "User_IsOfficeEmployeeID",
+                        principalColumn: "I_ID",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Users_User_Gender_User_GenderID",
-                        column: x => x.User_GenderID,
+                        name: "FK_Users_G_ID",
+                        column: x => x.G_ID,
                         principalTable: "User_Gender",
-                        principalColumn: "User_GenderID",
+                        principalColumn: "G_ID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -173,29 +173,29 @@ namespace esbas_internship_backendproject.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_Event_TypeID",
+                name: "IX_Events_T_ID",
                 table: "Events",
-                column: "Event_TypeID");
+                column: "T_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_Event_LocationID",
+                name: "IX_Events_L_ID",
                 table: "Events",
-                column: "Event_LocationID");
+                column: "L_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_User_DepartmentID",
+                name: "IX_Users_D_ID",
                 table: "Users",
-                column: "User_DepartmentID");
+                column: "D_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_User_IsOfficeEmployeeID",
+                name: "IX_Users_I_ID",
                 table: "Users",
-                column: "User_IsOfficeEmployeeID");
+                column: "I_ID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_User_GenderID",
+                name: "IX_Users_G_ID",
                 table: "Users",
-                column: "User_GenderID");
+                column: "G_ID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_Users_EventID",
@@ -205,7 +205,7 @@ namespace esbas_internship_backendproject.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Events_Users_ID",
                 table: "Events_Users",
-                column: "UserID");
+                column: "ID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

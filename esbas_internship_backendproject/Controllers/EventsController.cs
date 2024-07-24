@@ -134,7 +134,7 @@ namespace esbas_internship_backendproject.Controllers
                 }
 
             }
-            return CreatedAtAction("GetEvent_Location", new { id = event_Location.Event_LocationID }, event_Location);
+            return CreatedAtAction("GetEvent_Location", new { id = event_Location.L_ID }, event_Location);
         }
 
         [HttpPut("eventlocation/{id}")]
@@ -143,7 +143,7 @@ namespace esbas_internship_backendproject.Controllers
         public async Task<ActionResult> PutEvent_Location(int id, [FromBody] Event_Location event_Location)
         {
 
-            if (id != event_Location.Event_LocationID)
+            if (id != event_Location.L_ID)
             {
                 return BadRequest();
             }
@@ -224,7 +224,7 @@ namespace esbas_internship_backendproject.Controllers
                 }
 
             }
-            return CreatedAtAction("GetEvent_Type", new { id = event_type.Event_TypeID }, event_type);
+            return CreatedAtAction("GetEvent_Type", new { id = event_type.T_ID }, event_type);
         }
 
         [HttpPut("eventtype/{id}")]
@@ -232,7 +232,7 @@ namespace esbas_internship_backendproject.Controllers
 
         public async Task<ActionResult>  PutEvent_Type(int id, [FromBody] Event_Type event_type){
 
-            if (id != event_type.Event_TypeID)
+            if (id != event_type.T_ID)
             {
                 return BadRequest();
             }
@@ -284,12 +284,12 @@ namespace esbas_internship_backendproject.Controllers
         }
         private bool Event_LocationExists(int id)
         {
-           return _context.Event_Location.Any(el => el.Event_LocationID == id); 
+           return _context.Event_Location.Any(el => el.L_ID == id); 
         }
 
         private bool Event_TypeExists(int id)
         {
-            return _context.Event_Type.Any(et => et.Event_TypeID == id);
+            return _context.Event_Type.Any(et => et.T_ID == id);
         }
     }
     

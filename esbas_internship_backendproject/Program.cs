@@ -50,5 +50,6 @@ namespace esbas_internship_backendproject
             app.MapControllers();
             app.Run();
         }
+       
     }
 }

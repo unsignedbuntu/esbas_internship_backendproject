@@ -16,19 +16,18 @@
         public string Gender { get; set; }
         public bool Status { get; set; }
 
-        [ForeignKey("User_DepartmentID")]
-        public int User_DepartmentID { get; set; }
+        [ForeignKey("D_ID")]
+        public int D_ID { get; set; }
 
-        [ForeignKey("User_GenderID")]
-        public int User_GenderID { get; set; }
+        [ForeignKey("G_ID")]
+        public int G_ID { get; set; }
 
-        [ForeignKey("User_IsOfficeEmployeeID")]
-        public int User_IsOfficeEmployeeID { get; set; }
+        [ForeignKey("I_ID")]
+        public int I_ID { get; set; }
 
         //public User_Department User_Department { get; set; }
         //public User_Gender User_Gender { get; set; }
         //public User_IsOfficeEmployee User_IsOfficeEmployee { get; set; }
-        
 
         public Users() { }
     }

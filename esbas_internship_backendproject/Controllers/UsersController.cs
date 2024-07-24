@@ -51,14 +51,14 @@ namespace esbas_internship_backendproject.Controllers
 
             _context.Users.Add(users);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUsers), new { id = users.UserID } , users);
+            return CreatedAtAction(nameof(GetUsers), new { id = users.ID } , users);
         }
 
         [HttpPut("users/{id}")]
         [Produces("application/json")]
         public async Task<IActionResult> PutUser(int id, [FromBody] Users user)
         {
-            if (id != user.UserID)
+            if (id != user.ID)
             {
                 return BadRequest();
             }
@@ -138,7 +138,7 @@ namespace esbas_internship_backendproject.Controllers
 
             _context.User_Department.Add(user_Department);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser_Department), new { id = user_Department.User_DepartmentID }, user_Department);
+            return CreatedAtAction(nameof(GetUser_Department), new { id = user_Department.D_ID }, user_Department);
 
         }
 
@@ -148,7 +148,7 @@ namespace esbas_internship_backendproject.Controllers
         public async Task<ActionResult> Put_UserDepartment(int id, [FromBody] User_Department user_Department)
         {
 
-            if (id != user_Department.User_DepartmentID)
+            if (id != user_Department.D_ID)
             {
                 return BadRequest();
             }
@@ -228,7 +228,7 @@ namespace esbas_internship_backendproject.Controllers
 
             _context.User_Gender.Add(user_Gender);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser_Gender), new { id = user_Gender.User_GenderID }, user_Gender);
+            return CreatedAtAction(nameof(GetUser_Gender), new { id = user_Gender.G_ID }, user_Gender);
 
         }
 
@@ -238,7 +238,7 @@ namespace esbas_internship_backendproject.Controllers
         public async Task<ActionResult> Put_UserGender(int id, [FromBody] User_Gender user_Gender)
         {
 
-            if (id != user_Gender.User_GenderID)
+            if (id != user_Gender.G_ID)
             {
                 return BadRequest();
             }
@@ -318,7 +318,7 @@ namespace esbas_internship_backendproject.Controllers
 
             _context.User_IsOfficeEmployee.Add(user_IsOfficeEmployee);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUser_IsOfficeEmployee), new { id = user_IsOfficeEmployee.User_IsOfficeEmployeeID }, user_IsOfficeEmployee);
+            return CreatedAtAction(nameof(GetUser_IsOfficeEmployee), new { id = user_IsOfficeEmployee.I_ID }, user_IsOfficeEmployee);
 
         }
 
@@ -328,7 +328,7 @@ namespace esbas_internship_backendproject.Controllers
         public async Task<ActionResult> Put_UserIsOfficeEmployee(int id, [FromBody] User_IsOfficeEmployee user_IsOfficeEmployee)
         {
 
-            if (id != user_IsOfficeEmployee.User_IsOfficeEmployeeID)
+            if (id != user_IsOfficeEmployee.I_ID)
             {
                 return BadRequest();
             }
@@ -376,23 +376,23 @@ namespace esbas_internship_backendproject.Controllers
 
         private bool UserExists(int id)
         {
-            return _context.Users.Any(u => u.UserID == id);
+            return _context.Users.Any(u => u.ID == id);
         }
 
         private bool User_DepartmentExists(int id)
         {
-            return _context.User_Department.Any(ud => ud.User_DepartmentID == id);
+            return _context.User_Department.Any(ud => ud.D_ID == id);
         }
 
         private bool User_IsOfficeEmployeeExists(int id)
         {
 
-            return _context.User_IsOfficeEmployee.Any( uı => uı.User_IsOfficeEmployeeID == id);
+            return _context.User_IsOfficeEmployee.Any( uı => uı.I_ID == id);
         }
 
         private bool User_GenderExists(int id)
         {
-            return _context.User_Gender.Any( ug => ug.User_GenderID == id);
+            return _context.User_Gender.Any( ug => ug.G_ID == id);
         }
     }
 }

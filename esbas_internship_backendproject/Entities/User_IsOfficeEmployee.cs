@@ -6,9 +6,9 @@
     {
 #nullable disable
         [Key]
-        public int User_IsOfficeEmployeeID { get; set; }
+        public int I_ID { get; set; }
 
-        public string User_IsOfficeEmployee_Name { get; set; }
+        public string Name { get; set; }
         public bool Status { get; set; } = true;
 
         public User_IsOfficeEmployee() { }

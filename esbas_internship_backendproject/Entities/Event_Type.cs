@@ -6,9 +6,9 @@
     {
 #nullable disable
         [Key]
-        public int Event_TypeID { get; set; }
+        public int T_ID { get; set; }
         
-        public string Event_Type_Name { get; set; }
+        public string Name { get; set; }
 
         public bool Status { get; set; } = true;
 

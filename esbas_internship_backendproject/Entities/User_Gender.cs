@@ -6,9 +6,9 @@
     {
 #nullable disable
         [Key]
-        public int User_GenderID { get; set; }
+        public int G_ID { get; set; }
 
-        public string User_Gender_Name { get; set; }
+        public string Name { get; set; }
 
         public bool Status { get; set; } = true;
 
