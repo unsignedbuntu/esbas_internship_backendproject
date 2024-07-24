@@ -27,11 +27,12 @@ namespace esbas_internship_backendproject.Controllers
                             UserID = u.UserID,
                             EventID = e.EventID,
                         };
-            */
+           */ 
             var eventsUsers = await _context.Events_Users
        .Include(eu => eu.Event)
        .Include(eu => eu.User)
        .ToListAsync();
+           
            
             return Ok(eventsUsers);
         }
@@ -41,6 +42,7 @@ namespace esbas_internship_backendproject.Controllers
 
         public async Task<ActionResult<Events_Users>> PostEvents_Users([FromBody] Events_Users events_Users)
         {
+            
             using (var transaction = _context.Database.BeginTransaction())
             {
                 try

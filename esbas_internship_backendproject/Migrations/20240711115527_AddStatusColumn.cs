@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Xml;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.Extensions.Configuration.UserSecrets;
 
 #nullable disable
 
@@ -85,7 +87,8 @@ namespace esbas_internship_backendproject.Migrations
                     Location = table.Column<string>(type: "nvarchar(200)", nullable: false),
                     EventDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Event_TypeID = table.Column<int>(type: "int", nullable: false),
-                    Event_LocationID = table.Column<int>(type: "int", nullable: false)
+                    Event_LocationID = table.Column<int>(type: "int", nullable: false),
+                    Event_Status = table.Column<bool>(type: "bool", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -108,12 +111,13 @@ namespace esbas_internship_backendproject.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    UserID = table.Column<int>(type: "int", nullable: false)
+
+                    ID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    UserID = table.Column<UniqueId>(type: "int", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Department = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     IsOfficeEmployee = table.Column<bool>(type: "bit", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     User_DepartmentID = table.Column<int>(type: "int", nullable: false),
                     User_IsOfficeEmployeeID = table.Column<int>(type: "int", nullable: false),
@@ -199,7 +203,7 @@ namespace esbas_internship_backendproject.Migrations
                 column: "EventID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Events_Users_UserID",
+                name: "IX_Events_Users_ID",
                 table: "Events_Users",
                 column: "UserID");
         }

@@ -2,8 +2,7 @@
 {
     public class Startup
     {
-
-        public IConfiguration Configuration { get; set; }
+        public required IConfiguration Configuration { get; set; }
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddCors(options =>

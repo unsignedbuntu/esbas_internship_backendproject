@@ -12,6 +12,7 @@
         
         public string Event_Location_Name { get; set; }
         public bool Status { get; set; } = true;
+        
         public Event_Location() { }
     }
 }

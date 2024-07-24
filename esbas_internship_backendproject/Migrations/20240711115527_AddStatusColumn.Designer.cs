@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using esbas_internship_backendproject;
+using System.Xml;
 
 #nullable disable
 
@@ -47,43 +48,43 @@ namespace esbas_internship_backendproject.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("BIT");
 
+                    b.Property<bool>("EventStatus")
+                        .HasColumnType("BIT");
+
                     b.HasKey("EventID");
 
                     b.ToTable("Events", (string)null);
                 });
 
-            modelBuilder.Entity("esbas_internship_backendproject.Entities.Events_Participants", b =>
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Events_Users" , b =>
                 {
-                    b.Property<int>("ParticipantID")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantID"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<int>("EventID")
                         .HasColumnType("int");
 
-                    b.Property<int>("Events_ParticipantsID")
+                    b.Property<int>("Events_UsersID")
                         .HasColumnType("int");
 
                     b.Property<bool>("Status")
                         .HasColumnType("BIT");
 
-                    b.HasKey("ParticipantID");
+                    b.HasKey("ID");
 
-                    b.ToTable("Events_Participants", (string)null);
+                    b.ToTable("Events_Users", (string)null);
                 });
 
-            modelBuilder.Entity("esbas_internship_backendproject.Entities.Participants", b =>
+            modelBuilder.Entity("esbas_internship_backendproject.Entities.Users", b =>
                 {
-                    b.Property<int>("ParticipantID")
+                    b.Property<int>("UserID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ParticipantID"), 1L, 1);
-
-                    b.Property<int>("Age")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
                     b.Property<string>("Department")
                         .HasColumnType("nvarchar(max)");
@@ -100,9 +101,12 @@ namespace esbas_internship_backendproject.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("BIT");
 
-                    b.HasKey("ParticipantID");
+                    b.Property<UniqueId>("UserID")
+                        .HasColumnType("int");
 
-                    b.ToTable("Participants", (string)null);
+                    b.HasKey("ID");
+
+                    b.ToTable("Users", (string)null);
                 });
 #pragma warning restore 612, 618
         }

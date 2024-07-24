@@ -10,15 +10,18 @@
         [Key]
         public int Events_UserID { get; set; }
 
+        [ForeignKey("EventID")]
         public int EventID { get; set; }
+
+        [ForeignKey("UserID")]
         public int UserID { get; set; }
         public bool Status { get; set; } = true;
 
-        [ForeignKey("EventID")]
         public Events Event { get; set; }
-
-        [ForeignKey("UserID")]
         public Users User { get; set; }
+        
+       // public ICollection<Events> Events { get; set; }
+        //public ICollection<Users> Users { get; set; }
 
         public Events_Users() { }
     }

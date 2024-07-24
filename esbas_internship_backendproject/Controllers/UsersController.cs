@@ -36,10 +36,10 @@ namespace esbas_internship_backendproject.Controllers
             {
                 try
                 {
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events ON");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Users ON");
                     _context.Users.Add(users);
                     await _context.SaveChangesAsync();
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events OFF");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Users OFF");
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -51,7 +51,7 @@ namespace esbas_internship_backendproject.Controllers
 
             _context.Users.Add(users);
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(GetUsers), new { id = users.UserID }, users);
+            return CreatedAtAction(nameof(GetUsers), new { id = users.UserID } , users);
         }
 
         [HttpPut("users/{id}")]
@@ -123,10 +123,10 @@ namespace esbas_internship_backendproject.Controllers
             {
                 try
                 {
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events ON");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT User_Department ON");
                     _context.User_Department.Add(user_Department);
                     await _context.SaveChangesAsync();
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events OFF");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT User_Department OFF");
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -213,10 +213,10 @@ namespace esbas_internship_backendproject.Controllers
             {
                 try
                 {
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events ON");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT User_Gender ON");
                     _context.User_Gender.Add(user_Gender);
                     await _context.SaveChangesAsync();
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events OFF");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT User_Gender OFF");
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -303,10 +303,10 @@ namespace esbas_internship_backendproject.Controllers
             {
                 try
                 {
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events ON");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT User_IsOfficeEmployee ON");
                     _context.User_IsOfficeEmployee.Add(user_IsOfficeEmployee);
                     await _context.SaveChangesAsync();
-                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT Events OFF");
+                    _context.Database.ExecuteSqlRaw("SET IDENTITY_INSERT User_IsOfficeEmployee OFF");
                     transaction.Commit();
                 }
                 catch (Exception)
@@ -387,7 +387,7 @@ namespace esbas_internship_backendproject.Controllers
         private bool User_IsOfficeEmployeeExists(int id)
         {
 
-            return _context.User_Department.Any( uı => uı.User_DepartmentID == id);
+            return _context.User_IsOfficeEmployee.Any( uı => uı.User_IsOfficeEmployeeID == id);
         }
 
         private bool User_GenderExists(int id)

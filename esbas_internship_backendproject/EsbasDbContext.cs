@@ -24,7 +24,7 @@ namespace esbas_internship_backendproject
         }
         protected override void OnModelCreating(ModelBuilder Modelbuilder)
         {
-            Modelbuilder.Entity<Users>().HasKey(u => u.UserID);
+            Modelbuilder.Entity<Users>().HasKey(u => u.ID);
             Modelbuilder.Entity<Users>().ToTable("Users");
 
             Modelbuilder.Entity<Events>().HasKey(e => e.EventID);
@@ -48,20 +48,21 @@ namespace esbas_internship_backendproject
             Modelbuilder.Entity<User_Gender>().HasKey(ug => ug.User_GenderID);
             Modelbuilder.Entity<User_Gender>().ToTable("User_Gender");
 
+          base.OnModelCreating(Modelbuilder);
+
             Modelbuilder.Entity<Events_Users>()
                  .HasOne(eu => eu.Event)
-                 .WithMany(e => e.Events_Users)
+                 .WithMany()
                  .HasForeignKey(eu => eu.EventID);
+
 
              Modelbuilder.Entity<Events_Users>()
                  .HasOne(eu => eu.User)
-                 .WithMany(e => e.Event_Users)
+                 .WithMany()
                  .HasForeignKey(eu => eu.UserID);
 
-             Modelbuilder.Entity<Events>()
-                 .HasKey(e => new { e.Event_TypeID, e.Event_LocationID });
 
-            Modelbuilder.Entity<Events>()
+          /*  Modelbuilder.Entity<Events>()
                 .HasOne(e => e.Event_Type)
                 .WithMany()
                 .HasForeignKey(e => e.Event_TypeID);
@@ -72,7 +73,7 @@ namespace esbas_internship_backendproject
                 .HasForeignKey(el => el.Event_LocationID);
 
 
-            Modelbuilder .Entity<Users>()
+            Modelbuilder.Entity<Users>()
                 .HasOne(u => u.User_Gender)
                 .WithMany()
                 .HasForeignKey(u => u.User_GenderID);
@@ -85,8 +86,8 @@ namespace esbas_internship_backendproject
             Modelbuilder.Entity<Users>()
                 .HasOne(u => u.User_IsOfficeEmployee)
                 .WithMany()
-                .HasForeignKey(u => u.User_IsOfficeEmployeeID);
-
+                .HasForeignKey(u => u.User_IsOfficeEmployeeID); */
+        
         }
     }
 }
