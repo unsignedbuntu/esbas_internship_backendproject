@@ -57,7 +57,7 @@ namespace esbas_internship_backendproject
              Modelbuilder.Entity<Events_Users>()
                  .HasOne(eu => eu.User)
                  .WithMany()
-                 .HasForeignKey(eu => eu.UserID);
+                 .HasForeignKey(eu => eu.ID);
 
 
             /*  Modelbuilder.Entity<Events>()
