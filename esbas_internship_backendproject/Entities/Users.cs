@@ -12,7 +12,7 @@
         public int UserID { get; set; }
         public string FullName { get; set; }
         public string Department { get; set; }
-        public bool IsOfficeEmployee { get; set; }
+        public string IsOfficeEmployee { get; set; }
         public string Gender { get; set; }
         public bool Status { get; set; }
 

@@ -117,7 +117,7 @@ namespace esbas_internship_backendproject.Migrations
                     UserID = table.Column<int>(type: "int", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Department = table.Column<string>(type: "nvarchar(100)", nullable: false),
-                    IsOfficeEmployee = table.Column<bool>(type: "bit", nullable: false),
+                    IsOfficeEmployee = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(10)", nullable: false),
                     D_ID = table.Column<int>(type: "int", nullable: false),
                     I_ID = table.Column<int>(type: "int", nullable: false),

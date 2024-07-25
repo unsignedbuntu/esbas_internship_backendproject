@@ -1,55 +1,64 @@
+using esbas_internship_backendproject;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.Text.Json.Serialization;
 
-namespace esbas_internship_backendproject
+var builder = WebApplication.CreateBuilder(args);
+
+/*builder.WebHost.ConfigureKestrel(options =>
 {
-#nullable disable
-    public class Program
+    options.ListenAnyIP(5043); // HTTP
+    options.ListenAnyIP(7282, listenOptions =>
     {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+        listenOptions.UseHttps(); // HTTPS
+    });
+});
+*/
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        builder => builder
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
-            builder.Services.AddControllers().AddJsonOptions(opt =>
+builder.Services.AddControllers().AddJsonOptions(opt =>
+{
+    opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+});
 
-            {
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen(c =>
+{
+    c.SwaggerDoc("v1", new OpenApiInfo { Title = "ESBAS API", Version = "v1" });
+    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+    c.SupportNonNullableReferenceTypes();
+    c.MapType<object>(() => new OpenApiSchema { Type = "object" });
+});
 
-                opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-            });
+var connectionString = builder.Configuration.GetConnectionString("EsbasDbContext");
 
-            builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "ESBAS API", Version = "v1" });
-                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
-                c.SupportNonNullableReferenceTypes();
-                c.MapType<object>(() => new OpenApiSchema { Type = "object" });
-            });
+    builder.Services.AddDbContext<EsbasDbContext>(options =>
+  options.UseSqlServer(builder.Configuration.GetConnectionString("EsbasDbContext") ?? throw new InvalidOperationException("Connection string 'EsbasDbContext' not found in configuration.")));
 
+var app = builder.Build();
 
-            var connectionString = builder.Configuration.GetConnectionString("EsbasDbContext");
+// CORS ayarlarýný uygulama
+app.UseCors("AllowAll");
 
-            builder.Services.AddDbContext<EsbasDbContext>(options =>
-                options.UseSqlServer(connectionString));
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "ESBAS API");
 
-            var app = builder.Build();
-
-            if (app.Environment.IsDevelopment())
-            {
-                app.UseSwagger();
-                app.UseSwaggerUI(c =>
-                {
-                    c.SwaggerEndpoint("/swagger/v1/swagger.json", "ESBAS API");
-
-                });
-            }
-
-            app.UseHttpsRedirection();
-            app.UseAuthorization();
-            app.MapControllers();
-            app.Run();
-        }
-       
-    }
+    });
 }
+
+app.UseHttpsRedirection();
+app.UseAuthorization();
+app.MapControllers();
+app.Run();
+
