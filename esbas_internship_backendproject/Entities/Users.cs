@@ -16,14 +16,7 @@
         public string Gender { get; set; }
         public bool Status { get; set; }
 
-        [ForeignKey("D_ID")]
-        public int D_ID { get; set; }
-
-        [ForeignKey("G_ID")]
-        public int G_ID { get; set; }
-
-        [ForeignKey("I_ID")]
-        public int I_ID { get; set; }
+ 
 
         //public User_Department User_Department { get; set; }
         //public User_Gender User_Gender { get; set; }

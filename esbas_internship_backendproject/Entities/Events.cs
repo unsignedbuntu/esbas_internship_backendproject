@@ -16,13 +16,6 @@
         public bool Status { get; set; } = true;
         public bool Event_Status { get; set; } = true;
 
-        [ForeignKey("L_ID")]
-        public int L_ID { get; set; }
-
-        [ForeignKey("T_ID")]
-
-        public int T_ID { get; set; }
-        
         //public Event_Location Event_Location { get; set; }
 
          //public Event_Type Event_Type { get; set; }

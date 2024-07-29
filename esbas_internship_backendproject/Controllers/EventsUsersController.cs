@@ -13,6 +13,7 @@ namespace esbas_internship_backendproject.Controllers
         public EventsUsersController(EsbasDbContext context)
         {
             _context = context;
+
         }
 
         [HttpGet("eventsusers")]
