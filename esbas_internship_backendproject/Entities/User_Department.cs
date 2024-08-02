@@ -2,11 +2,14 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     public class User_Department
     {
 #nullable disable
         [Key]
-        public int D_ID {  get; set; }
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int D_ID { get; set; }
         public string Name { get; set; }
         public bool Status { get; set; } = true;
 

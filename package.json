@@ -8,9 +8,8 @@
     "concurrently": "^8.2.2"
   },
   "scripts": {
-    "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
-    "start:frontend": "cd C:\\users\\atala\\source\\repos\\esbas_internship_backendproject\\esbas_internship_backendproject\\esbas_internship_frontendproject && npm start",
-    "start:backend": "cd C:\\users\\atala\\source\\repos\\esbas_internship_backendproject\\esbas_internship_backendproject && dotnet run",
+
+    "start:frontend": "react-scripts start",   
     "test": "react-scripts test",
     "build": "react-scripts build",
     "eject": "react-scripts eject"

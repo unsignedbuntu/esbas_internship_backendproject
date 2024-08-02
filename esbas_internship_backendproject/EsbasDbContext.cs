@@ -1,22 +1,22 @@
 ﻿using esbas_internship_backendproject.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
-using System.Reflection.Emit;
-using System.Security.Cryptography.X509Certificates;
+
 
 namespace esbas_internship_backendproject
 {
     public class EsbasDbContext : DbContext
     {
 #nullable disable
-        public DbSet<Users> Users { get;  set; }
-        public DbSet<Events> Events { get;  set; }
+        public DbSet <Users> Users { get; set; }
+        public DbSet<Events> Events { get; set; }
         public DbSet<Events_Users> Events_Users { get; set; }
         public DbSet<Event_Type> Event_Type { get; set; }
         public DbSet<Event_Location> Event_Location { get; set; }
-        public DbSet<User_Department> User_Department {  get; set; }
-        public DbSet<User_IsOfficeEmployee> User_IsOfficeEmployee { get; set; } 
+        public DbSet<User_Department> User_Department { get; set; }
+        public DbSet<User_IsOfficeEmployee> User_IsOfficeEmployee { get; set; }
         public DbSet<User_Gender> User_Gender { get; set; }
+        
 
         public EsbasDbContext(DbContextOptions<EsbasDbContext> options) : base(options)
         {
@@ -33,12 +33,12 @@ namespace esbas_internship_backendproject
             Modelbuilder.Entity<Events_Users>().HasKey(eu => eu.ID);
             Modelbuilder.Entity<Events_Users>().ToTable("Events_Users");
 
-            Modelbuilder.Entity<Event_Type>().HasKey(et  => et.T_ID);
+            Modelbuilder.Entity<Event_Type>().HasKey(et => et.T_ID);
             Modelbuilder.Entity<Event_Type>().ToTable("Event_Type");
 
             Modelbuilder.Entity<Event_Location>().HasKey(el => el.L_ID);
             Modelbuilder.Entity<Event_Location>().ToTable("Event_Location");
-
+            
             Modelbuilder.Entity<User_Department>().HasKey(ud => ud.D_ID);
             Modelbuilder.Entity<User_Department>().ToTable("User_Department");
 
@@ -54,13 +54,18 @@ namespace esbas_internship_backendproject
                  .HasForeignKey(eu => eu.EventID);
 
 
-             Modelbuilder.Entity<Events_Users>()
-                 .HasOne(eu => eu.User)
-                 .WithMany()
-                 .HasForeignKey(eu => eu.ID);
+            Modelbuilder.Entity<Events_Users>()
+                .HasOne(eu => eu.User)
+                .WithMany()
+                .HasForeignKey(eu => eu.ID);
 
+            
+            /*Modelbuilder.Entity<EventDTO>()
+                .HasOne()
+                .WithMany()
+                .HasForeignKey(e => e.)
 
-            /*  Modelbuilder.Entity<Events>()
+             Modelbuilder.Entity<Events>()
                   .HasOne(e => e.Event_Type)
                   .WithMany()
                   .HasForeignKey(e => e.Event_TypeID);
