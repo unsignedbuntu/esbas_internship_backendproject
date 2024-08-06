@@ -47,6 +47,23 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             return Ok(events);
         }
 
+        [HttpGet("status/{eventStatus}")]
+        [Produces("application/json")]
+        public IActionResult GetEventByStatus(bool eventStatus)
+        {
+            var events = _context.Events
+                .Where(e => e.Event_Status == eventStatus)
+                .Select(e => _mapper.Map<EventDTO>(e))
+                .ToList();
+
+            if (events.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(events);
+        }
+
         [HttpPost]
         [Produces("application/json")]
         public IActionResult CreateEvents([FromBody] EventResponseDTO eventResponseDTO)
