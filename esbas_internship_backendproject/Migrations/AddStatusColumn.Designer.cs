@@ -67,7 +67,7 @@ namespace esbas_internship_backendproject.Migrations
                 b.Property<int>("EventID")
                     .HasColumnType("int");
 
-                b.Property<int>("Events_UsersID")
+                b.Property<UniqueId>("CardID")
                     .HasColumnType("int");
 
                 b.Property<bool>("Status")
@@ -86,6 +86,9 @@ namespace esbas_internship_backendproject.Migrations
 
                 SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
 
+                b.Property<UniqueId>("CardID")
+                  .HasColumnType("int");
+
                 b.Property<string>("Department")
                     .HasColumnType("nvarchar(max)");
 
@@ -101,10 +104,7 @@ namespace esbas_internship_backendproject.Migrations
                 b.Property<bool>("Status")
                     .HasColumnType("BIT");
 
-                b.Property<UniqueId>("UserID")
-                    .HasColumnType("int");
-
-                b.HasKey("ID");
+                b.HasKey("UserID");
 
                 b.ToTable("Users", (string)null);
             });

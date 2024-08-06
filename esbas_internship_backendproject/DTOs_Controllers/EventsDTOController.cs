@@ -1,4 +1,5 @@
 ﻿using esbas_internship_backendproject.DTOs;
+using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
@@ -48,52 +49,45 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult CreateEvents([FromBody] EventDTO eventDTO)
+        public IActionResult CreateEvents([FromBody] EventResponseDTO eventResponseDTO)
         {
-            if (eventDTO == null || !ModelState.IsValid)
+            if (eventResponseDTO == null || !ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var events = new Events
-            {
-                Name = eventDTO.Name,
-                Type = eventDTO.Type,
-                Location = eventDTO.Location,
-                EventDateTime = eventDTO.EventDateTime,
-                
-            };
+            var eventsResponse = _mapper.Map<Events>(eventResponseDTO);
 
-            _context.Events.Add(events);
+            _context.Events.Add(eventsResponse);
             _context.SaveChanges();
 
-            return Ok(events);
+            return Ok(eventsResponse);
         }
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult UpdateEvents(int id, [FromBody] EventDTO eventsDTO )
+        public IActionResult UpdateEvents(int id, [FromBody] EventResponseDTO eventResponseDTO )
         {
-            if (eventsDTO == null)
+            if (eventResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var events = _context.Events.FirstOrDefault(e => e.EventID == id);
+            var eventsResponse = _context.Events.FirstOrDefault(e => e.EventID == id);
 
-            if (events == null)
+            if (eventsResponse == null)
             {
                 return NotFound();
             }
 
-            events.Name = eventsDTO.Name;
-            events.Type = eventsDTO.Type;
-            events.Location = eventsDTO.Location;
-            events.EventDateTime = eventsDTO.EventDateTime;
+            eventsResponse.Name = eventResponseDTO.Name;
+            eventsResponse.Type = eventResponseDTO.Type;
+            eventsResponse.Location = eventResponseDTO.Location;
+            eventsResponse.EventDateTime = eventResponseDTO.EventDateTime;
 
             _context.SaveChanges();
 
-             return Ok(events);
+             return Ok(eventsResponse);
         }
 
         [HttpDelete("SoftDelete{id}")]
@@ -117,7 +111,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             return NoContent();
         }
 
-        [HttpDelete("ForceDelete/{id}")]
+        /*[HttpDelete("ForceDelete/{id}")]
         [Produces("application/json")]
         public async Task<IActionResult> DeleteEvent(int id)
         {
@@ -132,7 +126,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
 
     }

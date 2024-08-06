@@ -1,4 +1,5 @@
 ﻿using esbas_internship_backendproject.DTOs;
+using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
@@ -48,45 +49,42 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult CreateUserGender([FromBody] UserGenderDTO userGenderDTO)
+        public IActionResult CreateUserGender([FromBody] UserGenderResponseDTO userGenderResponseDTO)
         {
-            if (userGenderDTO == null)
+            if (userGenderResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var user_Gender = new User_Gender
-            {
-                Name = userGenderDTO.Name,
-            };
+            var userGenderResponse = _mapper.Map<User_Gender>(userGenderResponseDTO);
 
-            _context.User_Gender.Add(user_Gender);
+            _context.User_Gender.Add(userGenderResponse);
             _context.SaveChanges();
 
-            return Ok(user_Gender);
+            return Ok(userGenderResponse);
         }
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult UpdateUserGender(int id, [FromBody] UserGenderDTO userGenderDTO)
+        public IActionResult UpdateUserGender(int id, [FromBody] UserGenderResponseDTO userGenderResponseDTO)
         {
-            if (userGenderDTO == null)
+            if (userGenderResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var userGender = _context.User_Gender.FirstOrDefault(ug => ug.G_ID == id);
+            var userGenderResponse = _context.User_Gender.FirstOrDefault(ug => ug.G_ID == id);
 
-            if (userGender == null)
+            if (userGenderResponse == null)
             {
                 return NotFound();
             }
 
-            userGender.Name = userGenderDTO.Name;
+            userGenderResponse.Name = userGenderResponseDTO.Name;
 
             _context.SaveChanges();
 
-            return Ok(userGender);
+            return Ok(userGenderResponse);
         }
 
         [HttpDelete("{id}")]

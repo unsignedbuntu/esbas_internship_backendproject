@@ -1,4 +1,5 @@
 ﻿using esbas_internship_backendproject.DTOs;
+using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
@@ -47,45 +48,42 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult CreateEventType([FromBody] EventTypeDTO eventTypeDTO)
+        public IActionResult CreateEventType([FromBody] EventTypeResponseDTO eventTypeResponseDTO)
         {
-            if (eventTypeDTO == null)
+            if (eventTypeResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var event_Type = new Event_Type
-            {
-                Name = eventTypeDTO.Name,
-            };
+            var eventTypeResponse = _mapper.Map<Event_Type>(eventTypeResponseDTO);
 
-            _context.Event_Type.Add(event_Type);
+            _context.Event_Type.Add(eventTypeResponse);
             _context.SaveChanges();
 
-            return Ok(event_Type);
+            return Ok(eventTypeResponse);
         }
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult UpdateEventType(int id, [FromBody] EventTypeDTO eventTypeDTO)
+        public IActionResult UpdateEventType(int id, [FromBody] EventTypeResponseDTO eventTypeResponseDTO)
         {
-            if (eventTypeDTO == null)
+            if (eventTypeResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var eventType = _context.Event_Type.FirstOrDefault(et => et.T_ID == id);
+            var eventTypeResponse = _context.Event_Type.FirstOrDefault(et => et.T_ID == id);
 
-            if (eventType == null)
+            if (eventTypeResponse == null)
             {
                 return NotFound();
             }
 
-            eventType.Name = eventTypeDTO.Name;
+            eventTypeResponse.Name = eventTypeResponseDTO.Name;
 
             _context.SaveChanges();
 
-            return Ok(eventType);
+            return Ok(eventTypeResponseDTO);
         }
 
         [HttpDelete("{id}")]

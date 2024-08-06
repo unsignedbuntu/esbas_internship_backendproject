@@ -11,5 +11,6 @@
         public int T_ID { get; set; }
         public string Name { get; set; }
         public bool Status { get; set; } = true;
+
     }
 }

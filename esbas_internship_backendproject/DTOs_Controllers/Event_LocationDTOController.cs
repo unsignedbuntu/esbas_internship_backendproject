@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
+using esbas_internship_backendproject.ResponseDTO;
 
 namespace esbas_internship_backendproject.Controllers
 {
@@ -49,45 +50,42 @@ namespace esbas_internship_backendproject.Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult CreateEventLocation([FromBody] EventLocationDTO eventLocationDTO)
+        public IActionResult CreateEventLocation([FromBody] EventLocationResponseDTO eventLocationResponseDTO)
         {
-            if (eventLocationDTO == null)
+            if (eventLocationResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var eventLocation = new Event_Location
-            {
-                Name = eventLocationDTO.Name,
-            };
+            var eventLocationResponse = _mapper.Map<Event_Location>(eventLocationResponseDTO);
 
-            _context.Event_Location.Add(eventLocation);
+            _context.Event_Location.Add(eventLocationResponse);
             _context.SaveChanges();
 
-            return Ok(eventLocation);
+            return Ok(eventLocationResponse);
         }
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult UpdateEventLocation(int id, [FromBody] EventLocationDTO eventLocationDTO)
+        public IActionResult UpdateEventLocation(int id, [FromBody] EventLocationResponseDTO eventLocationResponseDTO)
         {
-            if (eventLocationDTO == null)
+            if (eventLocationResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var eventLocation = _context.Event_Location.FirstOrDefault(el => el.L_ID == id);
+            var eventLocationResponse = _context.Event_Location.FirstOrDefault(el => el.L_ID == id);
 
-            if (eventLocation == null)
+            if (eventLocationResponse == null)
             {
                 return NotFound();
             }
 
-            eventLocation.Name = eventLocationDTO.Name;
+            eventLocationResponse.Name = eventLocationResponseDTO.Name;
 
             _context.SaveChanges();
 
-            return Ok(eventLocation);
+            return Ok(eventLocationResponse);
         }
 
         [HttpDelete("{id}")]

@@ -1,8 +1,10 @@
 ﻿using esbas_internship_backendproject.DTOs;
+using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
+
 
 namespace esbas_internship_backendproject.DTOs_Controllers
 {
@@ -27,6 +29,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
                 .Include(eu => eu.User)
                 .Select(eu => _mapper.Map<EventsUsersDTO>(eu))
                 .ToList();
+     
 
             return Ok(eventsusers);
         }
@@ -52,64 +55,47 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         }
 
 
-            [HttpPost]
-            [Produces("application/json")]
-            public IActionResult CreateEventsUsers([FromBody] EventsUsersDTO eventsUsersDTO)
-            {
-                if (eventsUsersDTO == null || !ModelState.IsValid)
-                {
-                return BadRequest(ModelState); // Hataları döndür  
-                }
+          [HttpPost()]
+          [Produces("application/json")]
+          public IActionResult CreateEventsUsersMap([FromBody] EventsUsersResponseDTO eventsUsersResponseDTO)
+          {
+              if (eventsUsersResponseDTO == null || !ModelState.IsValid)
+              {
+                  return BadRequest(ModelState); 
+              }
 
-           
-                var event_Users = _mapper.Map<Events_Users>(eventsUsersDTO);
+            var event_UsersResponse = _mapper.Map<Events_Users>(eventsUsersResponseDTO);
 
-                _context.Events_Users.Add(event_Users);
-                _context.SaveChanges();
+              _context.Events_Users.Add(event_UsersResponse);
+              _context.SaveChanges();
 
-                return Ok(_mapper.Map<EventsUsersDTO>(event_Users));
-        }
-
-        [HttpPost("CreateWithMapper")]
-        [Produces("application/json")]
-        public IActionResult CreateEventsUsersMap([FromBody] EventsUsersDTO eventsUsersDTO)
-        {
-            if (eventsUsersDTO == null || !ModelState.IsValid)
-            {
-                return BadRequest(ModelState); 
-            }
-
-            var event_Users = _mapper.Map<Events_Users>(eventsUsersDTO);
-
-            _context.Events_Users.Add(event_Users);
-            _context.SaveChanges();
-
-            return Ok(_mapper.Map<EventsUsersDTO>(event_Users));
-        }
+              return Ok(event_UsersResponse);
+          }
+        
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult UpdateEventsUsers(int id, [FromBody] EventsUsersDTO events_UsersDTO)
+        public IActionResult UpdateEventsUsers(int id, [FromBody] EventsUsersResponseDTO eventsUsersResponseDTO)
         {
-            if (events_UsersDTO == null)
+            if (eventsUsersResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var eventsUsers = _context.Events_Users.FirstOrDefault(eu => eu.ID == id);
+            var eventsUsersResponse = _context.Events_Users.FirstOrDefault(eu => eu.ID == id);
 
-            if (eventsUsers == null)
+            if (eventsUsersResponse == null)
             {
                 return NotFound();
             }
 
-            eventsUsers.ID = events_UsersDTO.ID;
-            eventsUsers.EventID = events_UsersDTO.EventID;
-            eventsUsers.UserID = events_UsersDTO.UserID;
+            eventsUsersResponse.EventID = eventsUsersResponseDTO.EventID;
+            eventsUsersResponse.CardID = eventsUsersResponseDTO.CardID;
           
+       
             _context.SaveChanges();
 
-            return Ok(eventsUsers);
+            return Ok(eventsUsersResponse);
         }
 
         [HttpDelete("SoftDelete{id}")]
@@ -132,12 +118,12 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             return NoContent();
         }
 
-        [HttpDelete("ForceDelete{eventId}/{userId}")]
+        /*[HttpDelete("ForceDelete{eventId}/{userId}")]
         [Produces("application/json")]
         public async Task<IActionResult> DeleteEvents_Users(int eventId, int userId)
         {
             var eventUser = await _context.Events_Users
-                .FirstOrDefaultAsync(eu => eu.EventID == eventId && eu.UserID == userId);
+                .FirstOrDefaultAsync(eu => eu.EventID == eventId && eu.User.UserID == userId);
 
             if (eventUser == null)
             {
@@ -148,7 +134,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
+        }*/
 
     }
 

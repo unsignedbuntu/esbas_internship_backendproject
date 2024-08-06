@@ -8,8 +8,8 @@
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
         public int UserID { get; set; }
+        public int CardID { get; set; }
         public string FullName { get; set; }
         public string Department { get; set; }
         public string IsOfficeEmployee { get; set; }

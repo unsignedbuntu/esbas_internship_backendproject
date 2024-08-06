@@ -9,8 +9,6 @@
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
-        public int EventID { get; set; }
-        public int UserID { get; set; }
         public bool Status { get; set; } = true;
         public EventDTO Event { get; set; }   
         public UserDTO User { get; set; }

@@ -1,4 +1,5 @@
 ﻿using esbas_internship_backendproject.DTOs;
+using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
@@ -47,45 +48,42 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult CreateUserDepartment([FromBody] UserDepartmentDTO user_DepartmentDTO)
+        public IActionResult CreateUserDepartment([FromBody] UserDepartmentResponseDTO userDepartmentResponseDTO)
         {
-            if (user_DepartmentDTO == null)
+            if (userDepartmentResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var userDepartment = new User_Department
-            {
-                Name = user_DepartmentDTO.Name
-            };
+            var userDepartmentResponse = _mapper.Map<User_Department>(userDepartmentResponseDTO);
 
-            _context.User_Department.Add(userDepartment);
+            _context.User_Department.Add(userDepartmentResponse);
             _context.SaveChanges();
 
-            return Ok(userDepartment);
+            return Ok(userDepartmentResponse);
         }
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult UpdateUserDepartment(int id, [FromBody] UserDepartmentDTO userDepartmentDTO)
+        public IActionResult UpdateUserDepartment(int id, [FromBody] UserDepartmentResponseDTO userDepartmentResponseDTO)
         {
-            if (userDepartmentDTO == null)
+            if (userDepartmentResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var userDepartment = _context.User_Department.FirstOrDefault(ud => ud.D_ID == id);
+            var userDepartmentResponse = _context.User_Department.FirstOrDefault(ud => ud.D_ID == id);
 
-            if (userDepartment == null)
+            if (userDepartmentResponse == null)
             {
                 return NotFound();
             }
 
-            userDepartment.Name = userDepartmentDTO.Name;
+            userDepartmentResponse.Name = userDepartmentResponseDTO.Name;
 
             _context.SaveChanges();
 
-            return Ok(userDepartment);
+            return Ok(userDepartmentResponse);
         }
 
         [HttpDelete("{id}")]

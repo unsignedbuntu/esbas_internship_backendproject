@@ -14,8 +14,8 @@
         [ForeignKey("EventID")]
         public int EventID { get; set; }
 
-        [ForeignKey("UserID")]
-        public int UserID { get; set; }
+        [ForeignKey("CardID")]
+        public int CardID { get; set; }
         public bool Status { get; set; } = true;
 
         public Events Event { get; set; }

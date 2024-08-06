@@ -1,4 +1,5 @@
 ﻿using esbas_internship_backendproject.DTOs;
+using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
@@ -47,45 +48,43 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
         [HttpPost]
         [Produces("application/json")]
-        public IActionResult CreateUserIsOfficeEmployee([FromBody] UserIsOfficeEmployeeDTO user_IsOfficeEmployee)
+        public IActionResult CreateUserIsOfficeEmployee([FromBody] UserIsOfficeEmployeeResponseDTO user_IsOfficeEmployeeResponseDTO)
         {
-            if (user_IsOfficeEmployee == null)
+            if (user_IsOfficeEmployeeResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var userIsOfficeEmployee = new User_IsOfficeEmployee
-            {
-                Name = user_IsOfficeEmployee.Name,
-            };
+            var userIsOfficeEmployeeResponse = _mapper.Map<User_IsOfficeEmployee>(user_IsOfficeEmployeeResponseDTO);
 
-            _context.User_IsOfficeEmployee.Add(userIsOfficeEmployee);
+
+            _context.User_IsOfficeEmployee.Add(userIsOfficeEmployeeResponse);
             _context.SaveChanges();
 
-            return Ok(userIsOfficeEmployee);
+            return Ok(userIsOfficeEmployeeResponse);
         }
 
         [HttpPut("{id}")]
         [Produces("application/json")]
-        public IActionResult UpdateUserIsOfficeEmployee(int id, [FromBody] UserIsOfficeEmployeeDTO userIsOfficeEmployeeDTO)
+        public IActionResult UpdateUserIsOfficeEmployee(int id, [FromBody] UserIsOfficeEmployeeResponseDTO userIsOfficeEmployeeResponseDTO)
         {
-            if (userIsOfficeEmployeeDTO == null)
+            if (userIsOfficeEmployeeResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var user_IsOfficeEmployee = _context.User_IsOfficeEmployee.FirstOrDefault(uı => uı.I_ID == id);
+            var user_IsOfficeEmployeeResponse = _context.User_IsOfficeEmployee.FirstOrDefault(uı => uı.I_ID == id);
 
-            if (user_IsOfficeEmployee == null)
+            if (user_IsOfficeEmployeeResponse == null)
             {
                 return NotFound();
             }
 
-            user_IsOfficeEmployee.Name = userIsOfficeEmployeeDTO.Name;
+            user_IsOfficeEmployeeResponse.Name = userIsOfficeEmployeeResponseDTO.Name;
 
             _context.SaveChanges();
 
-            return Ok(user_IsOfficeEmployee);
+            return Ok(user_IsOfficeEmployeeResponse);
         }
 
         [HttpDelete("{id}")]

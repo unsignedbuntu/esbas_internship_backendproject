@@ -98,9 +98,9 @@ namespace esbas_internship_backendproject.Migrations
                 columns: table => new
                 {
 
-                    ID = table.Column<int>(type: "int", nullable: false)
+                    UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    UserID = table.Column<int>(type: "int", nullable: false),
+                    CardID = table.Column<int>(type: "int", nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     Department = table.Column<string>(type: "nvarchar(100)", nullable: false),
                     IsOfficeEmployee = table.Column<string>(type: "nvarchar(100)", nullable: false),
@@ -108,7 +108,7 @@ namespace esbas_internship_backendproject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Users", x => x.ID);
+                    table.PrimaryKey("PK_Users", x => x.UserID);
                 });
 
             migrationBuilder.CreateTable(
@@ -118,7 +118,7 @@ namespace esbas_internship_backendproject.Migrations
                     Events_UserID = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EventID = table.Column<int>(type: "int", nullable: false),
-                    UserID = table.Column<int>(type: "int", nullable: false)
+                    CardID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -131,9 +131,9 @@ namespace esbas_internship_backendproject.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Events_Users_Users_UserID",
-                        column: x => x.UserID,
+                        column: x => x.CardID,
                         principalTable: "Users",
-                        principalColumn: "UserID",
+                        principalColumn: "CardID",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -166,6 +166,12 @@ namespace esbas_internship_backendproject.Migrations
                 name: "IX_Events_Users_EventID",
                 table: "Events_Users",
                 column: "EventID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Events_Users_UserID",
+                table: "Users",
+                column: "UserID");
+
 
             migrationBuilder.CreateIndex(
                 name: "IX_Events_Users_ID",

@@ -1,6 +1,7 @@
 ﻿using esbas_internship_backendproject.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Migrations;
+using System.Reflection.Emit;
 
 
 namespace esbas_internship_backendproject
@@ -16,7 +17,7 @@ namespace esbas_internship_backendproject
         public DbSet<User_Department> User_Department { get; set; }
         public DbSet<User_IsOfficeEmployee> User_IsOfficeEmployee { get; set; }
         public DbSet<User_Gender> User_Gender { get; set; }
-        
+
 
         public EsbasDbContext(DbContextOptions<EsbasDbContext> options) : base(options)
         {
@@ -24,7 +25,8 @@ namespace esbas_internship_backendproject
         }
         protected override void OnModelCreating(ModelBuilder Modelbuilder)
         {
-            Modelbuilder.Entity<Users>().HasKey(u => u.ID);
+            Modelbuilder.Entity<Users>().HasKey(u => u.UserID);
+           // Modelbuilder.Entity<Users>().HasIndex(u => u.CardID).IsUnique(); 
             Modelbuilder.Entity<Users>().ToTable("Users");
 
             Modelbuilder.Entity<Events>().HasKey(e => e.EventID);
@@ -57,9 +59,11 @@ namespace esbas_internship_backendproject
             Modelbuilder.Entity<Events_Users>()
                 .HasOne(eu => eu.User)
                 .WithMany()
-                .HasForeignKey(eu => eu.ID);
+                .HasForeignKey(eu => eu.CardID)
+                .HasPrincipalKey(u => u.CardID);
 
-            
+
+
             /*Modelbuilder.Entity<EventDTO>()
                 .HasOne()
                 .WithMany()
