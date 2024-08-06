@@ -1,4 +1,4 @@
-USE ESBAS_UPDATED_SQL_INTERNSHIP
+ï»¿USE ESBAS_UPDATED_SQL_INTERNSHIP
 
 IF OBJECT_ID('dbo.Events_Users','U') IS NOT NULL
 	DROP TABLE dbo.Events_Users;
@@ -24,7 +24,7 @@ IF OBJECT_ID('dbo.User_IsOfficeEmployee','U') IS NOT NULL
 IF OBJECT_ID('dbo.User_Gender','U') IS NOT NULL
 	DROP TABLE dbo.User_Gender;
 
-/* Normalizasyon tablolarý */
+/* Normalizasyon tablolarÃ½ */
 
 CREATE TABLE Event_Type(
 
@@ -76,8 +76,8 @@ CREATE TABLE Events (
 
 CREATE TABLE Users (
 
-    ID INT PRIMARY KEY IDENTITY(1,1),
-	UserID INT UNIQUE,
+    UserID INT PRIMARY KEY IDENTITY(1,1),
+	CardID INT UNIQUE,
     FullName VARCHAR(100) NOT NULL,
     Department VARCHAR(100) NOT NULL,
     IsOfficeEmployee VARCHAR(100) NOT NULL,
@@ -91,7 +91,7 @@ CREATE TABLE Events_Users(
 
 	ID INT PRIMARY KEY IDENTITY(1,1),
 	EventID INT FOREIGN KEY REFERENCES Events(EventID),
-	UserID INT FOREIGN KEY REFERENCES Users(UserID),
+	CardID INT FOREIGN KEY REFERENCES Users(CardID),
 	
 );
 
@@ -130,7 +130,7 @@ INSERT INTO Event_Type(Name) VALUES
 INSERT INTO Event_Location(Name) VALUES
 ('Meeting Room'),
 ('Garden'),
-('Ýzmir');
+('Izmir');
 
 INSERT INTO User_Department(Name) VALUES
 ('Human Resources'),
@@ -152,14 +152,14 @@ INSERT INTO Events (Name,Type, Location, EventDateTime,T_ID,L_ID,Event_Status) V
 ('Innovation-Focused Culture Development Training Program', 'Education', 'Meeting Room', '2024-07-09 08:00:00',2,3,1);
 
 
-INSERT INTO Users (UserID , FullName, Department, IsOfficeEmployee, Gender,D_ID,G_ID,I_ID) VALUES
+INSERT INTO Users (CardID , FullName, Department, IsOfficeEmployee, Gender,D_ID,G_ID,I_ID) VALUES
 (5666260, 'Cengizhan Kaya', 'IT', 'Office','Male',2,1,1),
 (5605224,'Selman Emre Erol', 'IT', 'Office', 'Male',2,1,1),
-(5358069, 'Atalay Beyazýt', 'IT', 'Office' ,'Male',2,1,1),
+(5358069, 'Atalay BeyazÃ½t', 'IT', 'Office' ,'Male',2,1,1),
 (5733290, 'Ceren Sezmen', 'CR', 'Office','Female',3,2,1);
 
 
-INSERT INTO Events_Users(EventID,UserID) VALUES
+INSERT INTO Events_Users(EventID,CardID) VALUES
 (2,5666260),
 (2,5605224),
 (3,5358069),
@@ -181,17 +181,17 @@ SELECT * FROM Users;
 
 SELECT * FROM Events_Users;
 
-SELECT EU.EventID,EU.UserID
+SELECT EU.EventID,EU.CardID
 FROM Events_Users AS EU
-INNER JOIN Users AS U ON EU.UserID = U.UserID
+INNER JOIN Users AS U ON EU.CardID = U.CardID
 WHERE EU.EventID = 1;
 
-SELECT EU.EventID,EU.UserID
+SELECT EU.EventID,EU.CardID
 FROM Events_Users AS EU
-INNER JOIN Users AS U ON EU.UserID = U.UserID
+INNER JOIN Users AS U ON EU.CardID = U.CardID
 WHERE EU.EventID = 2;
 
-SELECT EU.EventID,EU.UserID
+SELECT EU.EventID,EU.CardID
 FROM Events_Users AS EU
-INNER JOIN Users AS U ON EU.UserID = U.UserID
+INNER JOIN Users AS U ON EU.CardID = U.CardID
 WHERE EU.EventID = 3;
