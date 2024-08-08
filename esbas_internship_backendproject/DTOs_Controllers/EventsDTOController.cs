@@ -3,6 +3,7 @@ using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace esbas_internship_backendproject.DTOs_Controllers
 {
@@ -24,6 +25,8 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetEvents()
         {
             var events = _context.Events
+                .Include(e => e.Event_Type)
+                .Include(e => e.Event_Location)
                 .Select(e => _mapper.Map<EventDTO>(e))
                 .ToList();
 
@@ -36,7 +39,9 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         {
             var events = _context.Events
                 .Where(e => e.EventID == id)
-                .Select(e => _mapper.Map<EventDTO>(e))
+                .Include(e => e.Event_Type)
+                .Include(e => e.Event_Location)
+                 .Select(e => _mapper.Map<EventDTO>(e))
                 .FirstOrDefault();
 
             if (events == null)
@@ -53,6 +58,8 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         {
             var events = _context.Events
                 .Where(e => e.Event_Status == eventStatus)
+                .Include (e => e.Event_Type)
+                .Include(e => e.Event_Location)
                 .Select(e => _mapper.Map<EventDTO>(e))
                 .ToList();
 
@@ -107,9 +114,9 @@ namespace esbas_internship_backendproject.DTOs_Controllers
              return Ok(eventsResponse);
         }
 
-        [HttpDelete("SoftDelete{id}")]
+        [HttpDelete("SoftDelete_Status{id}")]
         [Produces("application/json")]
-        public IActionResult SoftDeleteEvents(int id)
+        public IActionResult SoftDeleteEventsByStatus(int id)
         {
             var events = _context.Events.FirstOrDefault(e => e.EventID == id);
 
@@ -128,23 +135,26 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             return NoContent();
         }
 
-        /*[HttpDelete("ForceDelete/{id}")]
+        [HttpDelete("SoftDelete_EventStatus{id}")]
         [Produces("application/json")]
-        public async Task<IActionResult> DeleteEvent(int id)
+        public IActionResult SoftDeleteEventsbyEventStatus(int id)
         {
-            var eventItem = await _context.Events.FindAsync(id);
+            var events = _context.Events.FirstOrDefault(e => e.EventID == id);
 
-            if (eventItem == null)
+            if (events == null)
             {
                 return NotFound();
             }
 
-            _context.Events.Remove(eventItem);
-            await _context.SaveChangesAsync();
+
+            events.Event_Status = false;
+
+
+            _context.Events.Update(events);
+            _context.SaveChanges();
 
             return NoContent();
-        }*/
-
+        }
 
     }
 }

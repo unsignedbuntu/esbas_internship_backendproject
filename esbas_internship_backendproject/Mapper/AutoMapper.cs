@@ -4,24 +4,24 @@ using esbas_internship_backendproject.Entities;
 using esbas_internship_backendproject.ResponseDTO;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
-namespace esbas_internship_backendproject // Replace with your namespace  
+namespace esbas_internship_backendproject.Mapper // Replace with your namespace  
 {
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
         {
-            
+
             CreateMap<EventsUsersDTO, Events_Users>();
             CreateMap<Events_Users, EventsUsersDTO>();
 
             CreateMap<EventDTO, Events>();
-            CreateMap<Events,EventDTO>();
+            CreateMap<Events, EventDTO>();
 
             CreateMap<UserDTO, Users>();
             CreateMap<Users, UserDTO>();
 
             CreateMap<UserDepartmentDTO, User_Department>();
-            CreateMap<Users, UserDepartmentDTO>();
+            CreateMap<User_Department, UserDepartmentDTO>();
 
             CreateMap<UserGenderDTO, User_Gender>();
             CreateMap<User_Gender, UserGenderDTO>();
@@ -30,34 +30,34 @@ namespace esbas_internship_backendproject // Replace with your namespace
             CreateMap<User_IsOfficeEmployee, UserIsOfficeEmployeeDTO>();
 
             CreateMap<EventLocationDTO, Event_Location>();
-            CreateMap<Event_Location,EventLocationDTO>();
+            CreateMap<Event_Location, EventLocationDTO>();
 
-            CreateMap<EventTypeDTO,Event_Type>();
+            CreateMap<EventTypeDTO, Event_Type>();
             CreateMap<Event_Type, EventTypeDTO>();
 
             CreateMap<EventsUsersResponseDTO, Events_Users>();
-            CreateMap<Events_Users,EventsUsersResponseDTO>();
+            CreateMap<Events_Users, EventsUsersResponseDTO>();
 
-            CreateMap<EventResponseDTO,Events>();
+            CreateMap<EventResponseDTO, Events>();
             CreateMap<Events, EventResponseDTO>();
 
             CreateMap<UserResponseDTO, Users>();
-            CreateMap<Users,UserResponseDTO>();
+            CreateMap<Users, UserResponseDTO>();
 
             CreateMap<UserDepartmentResponseDTO, User_Department>();
-            CreateMap<User_Department,UserDepartmentResponseDTO>();
+            CreateMap<User_Department, UserDepartmentResponseDTO>();
 
-            CreateMap<UserGenderResponseDTO,User_Gender>();
-            CreateMap<User_Gender,UserGenderResponseDTO>();
+            CreateMap<UserGenderResponseDTO, User_Gender>();
+            CreateMap<User_Gender, UserGenderResponseDTO>();
 
             CreateMap<UserIsOfficeEmployeeResponseDTO, User_IsOfficeEmployee>();
-            CreateMap<User_IsOfficeEmployee,UserIsOfficeEmployeeResponseDTO>();
+            CreateMap<User_IsOfficeEmployee, UserIsOfficeEmployeeResponseDTO>();
 
-            CreateMap<EventLocationResponseDTO,Event_Location>();
-            CreateMap<Event_Location,EventLocationResponseDTO>();
+            CreateMap<EventLocationResponseDTO, Event_Location>();
+            CreateMap<Event_Location, EventLocationResponseDTO>();
 
             CreateMap<EventTypeResponseDTO, Event_Type>();
-            CreateMap<Event_Type,EventTypeResponseDTO>();
+            CreateMap<Event_Type, EventTypeResponseDTO>();
 
 
         }

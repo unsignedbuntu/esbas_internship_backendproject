@@ -21,8 +21,6 @@
         public Events Event { get; set; }
         public Users User { get; set; }
 
-        //public ICollection<Events> Events { get; set; }
-        // public ICollection<Users> Users { get; set; }
 
         public Events_Users() { }
     }

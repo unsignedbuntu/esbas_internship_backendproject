@@ -26,7 +26,15 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         {
             var eventsusers = _context.Events_Users
                 .Include(eu => eu.Event)
+                .ThenInclude(e => e.Event_Location)
+                .Include(eu => eu.Event)
+                .ThenInclude(e => e.Event_Type)
                 .Include(eu => eu.User)
+                .ThenInclude(eu => eu.User_Gender)
+                .Include(eu => eu.User)
+                .ThenInclude(eu => eu.User_Department)
+                .Include(eu => eu.User)
+                .ThenInclude(eu => eu.User_IsOfficeEmployee)
                 .Select(eu => _mapper.Map<EventsUsersDTO>(eu))
                 .ToList();
      
@@ -117,25 +125,6 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
             return NoContent();
         }
-
-        /*[HttpDelete("ForceDelete{eventId}/{userId}")]
-        [Produces("application/json")]
-        public async Task<IActionResult> DeleteEvents_Users(int eventId, int userId)
-        {
-            var eventUser = await _context.Events_Users
-                .FirstOrDefaultAsync(eu => eu.EventID == eventId && eu.User.UserID == userId);
-
-            if (eventUser == null)
-            {
-                return NotFound();
-            }
-
-            _context.Events_Users.Remove(eventUser);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
-        }*/
-
     }
 
   }

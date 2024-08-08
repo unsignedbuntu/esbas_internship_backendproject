@@ -3,6 +3,7 @@ using esbas_internship_backendproject.ResponseDTO;
 using Microsoft.AspNetCore.Mvc;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 
 namespace esbas_internship_backendproject.DTOs_Controllers
 {
@@ -25,6 +26,9 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetUsers()
         {
             var users = _context.Users
+                .Include(u => u.User_Gender)
+                .Include(u => u.User_Department)
+                .Include(u => u.User_IsOfficeEmployee)
                 .Select(u => _mapper.Map<UserDTO>(u))   
                 .ToList();
 
@@ -37,6 +41,9 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         {
             var users = _context.Users
                 .Where(u => u.UserID == id)
+                .Include(u => u.User_Gender)
+                .Include(u => u.User_Department)
+                .Include(u => u.User_IsOfficeEmployee)
                 .Select(u => _mapper.Map<UserDTO>(u)) 
                 .FirstOrDefault();
 
@@ -66,22 +73,22 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             return Ok(usersResponse);
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("{cardid}")]
         [Produces("application/json")]
-        public IActionResult UpdateUsers(int id, [FromBody] UserResponseDTO userResponseDTO)
+        public IActionResult UpdateUsers(int cardid, [FromBody] UserResponseDTO userResponseDTO)
         {
             if (userResponseDTO == null)
             {
                 return BadRequest();
             }
 
-            var usersResponse = _context.Users.FirstOrDefault(u => u.UserID == id);
+            var usersResponse = _context.Users.FirstOrDefault(u => u.CardID == cardid);
 
             if (usersResponse == null)
             {
                 return NotFound();
             }
-
+            
             usersResponse.CardID = userResponseDTO.CardID;
             usersResponse.FullName = userResponseDTO.FullName;
             usersResponse.Department = userResponseDTO.Department;
@@ -93,11 +100,11 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             return Ok(usersResponse);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("{cardid}")]
         [Produces("application/json")]
-        public IActionResult SoftDeleteUsers(int id)
+        public IActionResult SoftDeleteUsers(int cardid)
         {
-            var users = _context.Users.FirstOrDefault(u => u.UserID == id);
+            var users = _context.Users.FirstOrDefault(u => u.CardID == cardid);
 
             if (users == null)
             {

@@ -11,17 +11,27 @@
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserID { get; set; }
         public int CardID { get; set; }
+
+        [ForeignKey("G_ID")]
+
+        public int G_ID { get; set; }
+
+        [ForeignKey("D_ID")]
+
+        public int D_ID { get; set; }
+
+        [ForeignKey("I_ID")]
+
+        public int I_ID { get; set; }
         public string FullName { get; set; }
         public string Department { get; set; }
         public string IsOfficeEmployee { get; set; } 
         public string Gender { get; set; }
         public bool Status { get; set; } = true;
 
-
-
-        //public User_Department User_Department { get; set; }
-        //public User_Gender User_Gender { get; set; }
-        //public User_IsOfficeEmployee User_IsOfficeEmployee { get; set; }
+        public User_Department User_Department { get; set; }
+        public User_Gender User_Gender { get; set; }
+        public User_IsOfficeEmployee User_IsOfficeEmployee { get; set; }
 
         public Users() { }
     }

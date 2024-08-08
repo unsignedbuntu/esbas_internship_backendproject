@@ -4,6 +4,10 @@ using Microsoft.OpenApi.Models;
 using System.Reflection;
 using System.Text.Json.Serialization;
 using AutoMapper;
+using Microsoft.Extensions.Options;
+using System.ComponentModel;
+using System.Globalization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
   
@@ -21,6 +25,8 @@ builder.Services.AddCors(options =>
 builder.Services.AddControllers().AddJsonOptions(opt =>
 {
     opt.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
+    opt.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    opt.JsonSerializerOptions.Converters.Add(new DateTimeConverter());
 });
 
 builder.Services.AddEndpointsApiExplorer();
@@ -28,7 +34,10 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
     options.CustomSchemaIds(type => type.ToString());
+
 });
+
+
 
 builder.Services.AddSwaggerGen(c =>
 {
@@ -61,3 +70,18 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
+
+public class DateTimeConverter : JsonConverter<DateTime>
+{
+    private const string Format = "yyyy-MM-ddTHH:mm:ss.fffZ";
+
+    public override DateTime Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    {
+        return DateTime.ParseExact(reader.GetString(), Format, CultureInfo.InvariantCulture);
+    }
+
+    public override void Write(Utf8JsonWriter writer, DateTime value, JsonSerializerOptions options)
+    {
+        writer.WriteStringValue(value.ToString(Format));
+    }
+}

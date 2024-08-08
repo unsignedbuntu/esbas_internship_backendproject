@@ -7,5 +7,9 @@
         public string Type { get; set; }
         public string Location { get; set; }
         public DateTime EventDateTime { get; set; }
+
+        public int T_ID { get; set; }
+
+        public int L_ID { get; set; }
     }
 }

@@ -16,5 +16,6 @@
         public bool Status { get; set; } = true;
 
         public Event_Type() { }
+       
     }
 }

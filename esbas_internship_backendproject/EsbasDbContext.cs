@@ -26,7 +26,7 @@ namespace esbas_internship_backendproject
         protected override void OnModelCreating(ModelBuilder Modelbuilder)
         {
             Modelbuilder.Entity<Users>().HasKey(u => u.UserID);
-           // Modelbuilder.Entity<Users>().HasIndex(u => u.CardID).IsUnique(); 
+            Modelbuilder.Entity<Users>().HasIndex(u => u.CardID).IsUnique(); 
             Modelbuilder.Entity<Users>().ToTable("Users");
 
             Modelbuilder.Entity<Events>().HasKey(e => e.EventID);
@@ -55,45 +55,36 @@ namespace esbas_internship_backendproject
                  .WithMany()
                  .HasForeignKey(eu => eu.EventID);
 
-
             Modelbuilder.Entity<Events_Users>()
                 .HasOne(eu => eu.User)
                 .WithMany()
                 .HasForeignKey(eu => eu.CardID)
                 .HasPrincipalKey(u => u.CardID);
 
-
-
-            /*Modelbuilder.Entity<EventDTO>()
-                .HasOne()
+            Modelbuilder.Entity<Events>()
+                .HasOne(e => e.Event_Location)
                 .WithMany()
-                .HasForeignKey(e => e.)
+                .HasForeignKey(e => e.L_ID);
 
-             Modelbuilder.Entity<Events>()
-                  .HasOne(e => e.Event_Type)
-                  .WithMany()
-                  .HasForeignKey(e => e.Event_TypeID);
+            Modelbuilder.Entity<Events>()
+                .HasOne(e => e.Event_Type)
+                .WithMany()
+                .HasForeignKey(e => e.T_ID);
 
-              Modelbuilder.Entity<Events>()
-                  .HasOne(e => e.Event_Location)
-                  .WithMany()
-                  .HasForeignKey(el => el.Event_LocationID);
+            Modelbuilder.Entity<Users>()
+                .HasOne(u => u.User_Gender)
+                .WithMany()
+                .HasForeignKey(u => u.G_ID);
 
+            Modelbuilder.Entity<Users>()
+                .HasOne(u => u.User_Department)
+                .WithMany()
+                .HasForeignKey(u => u.D_ID);
 
-              Modelbuilder.Entity<Users>()
-                  .HasOne(u => u.User_Gender)
-                  .WithMany()
-                  .HasForeignKey(u => u.User_GenderID);
-
-              Modelbuilder.Entity<Users>()
-                  .HasOne(u => u.User_Department)
-                  .WithMany()
-                  .HasForeignKey(u => u.User_DepartmentID);
-
-              Modelbuilder.Entity<Users>()
-                  .HasOne(u => u.User_IsOfficeEmployee)
-                  .WithMany()
-                  .HasForeignKey(u => u.User_IsOfficeEmployeeID); */
+            Modelbuilder.Entity<Users>()
+                .HasOne(u => u.User_IsOfficeEmployee)
+                .WithMany()
+                .HasForeignKey(u => u.I_ID);
 
             base.OnModelCreating(Modelbuilder);
         }

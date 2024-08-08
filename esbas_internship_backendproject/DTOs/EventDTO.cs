@@ -15,6 +15,10 @@
         public string Location { get; set; }
         public DateTime EventDateTime { get; set; }
         public bool Status { get; set; } = true;
-        public bool Event_Status { get; set; } 
+        public bool Event_Status { get; set; }
+
+        public EventLocationDTO Event_Location { get; set; }
+
+        public EventTypeDTO Event_Type { get; set; }
     }
 }
