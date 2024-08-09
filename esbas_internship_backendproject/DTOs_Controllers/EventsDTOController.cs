@@ -58,8 +58,6 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         {
             var events = _context.Events
                 .Where(e => e.Event_Status == eventStatus)
-                .Include (e => e.Event_Type)
-                .Include(e => e.Event_Location)
                 .Select(e => _mapper.Map<EventDTO>(e))
                 .ToList();
 
