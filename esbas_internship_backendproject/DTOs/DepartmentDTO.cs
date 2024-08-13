@@ -11,6 +11,12 @@
 
             public int DepartmentID { get; set; }
 
+            [ForeignKey("CostCenterID")]
+            public int CostCenterID { get; set; }
+
+            [ForeignKey("TaskID")]
+            public int TaskID { get; set; }
+
             public string Name { get; set; }
 
             public bool Status { get; set; } = true;

@@ -27,8 +27,9 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         {
             var users = _context.Users
                 .Include(u => u.User_Gender)
-                .Include(u => u.User_Department)
-                .Include(u => u.User_IsOfficeEmployee)
+                .Include( u => u.Main_Characteristicts)
+                .Include( u => u.Other_Characteristicts)
+                .Include(u => u.Department)
                 .Select(u => _mapper.Map<UserDTO>(u))   
                 .ToList();
 
@@ -42,8 +43,9 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             var users = _context.Users
                 .Where(u => u.UserID == id)
                 .Include(u => u.User_Gender)
-                .Include(u => u.User_Department)
-                .Include(u => u.User_IsOfficeEmployee)
+                .Include(u => u.Main_Characteristicts)
+                .Include(u => u.Other_Characteristicts)
+                .Include(u => u.Department)
                 .Select(u => _mapper.Map<UserDTO>(u)) 
                 .FirstOrDefault();
 
@@ -88,11 +90,11 @@ namespace esbas_internship_backendproject.DTOs_Controllers
                 return NotFound();
             }
             
-            usersResponse.CardID = userResponseDTO.CardID;
+       
             usersResponse.FullName = userResponseDTO.FullName;
-            usersResponse.Department = userResponseDTO.Department;
-            usersResponse.IsOfficeEmployee = userResponseDTO.IsOfficeEmployee;
-            usersResponse.Gender = userResponseDTO.Gender;
+            usersResponse.PhoneNumber = userResponseDTO.FullName;
+            usersResponse.MailAddress = userResponseDTO.MailAddress;
+            
            
             _context.SaveChanges();
 

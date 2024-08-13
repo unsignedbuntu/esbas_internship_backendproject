@@ -32,9 +32,11 @@ namespace esbas_internship_backendproject.DTOs_Controllers
                 .Include(eu => eu.User)
                 .ThenInclude(eu => eu.User_Gender)
                 .Include(eu => eu.User)
-                .ThenInclude(eu => eu.User_Department)
+                .ThenInclude(eu => eu.Main_Characteristicts)
                 .Include(eu => eu.User)
-                .ThenInclude(eu => eu.User_IsOfficeEmployee)
+                .ThenInclude(eu => eu.Other_Characteristicts)
+                .Include(eu => eu.User)
+                .ThenInclude(eu => eu.Department)
                 .Select(eu => _mapper.Map<EventsUsersDTO>(eu))
                 .ToList();
      
