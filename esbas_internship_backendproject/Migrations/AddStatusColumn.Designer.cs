@@ -46,10 +46,10 @@ namespace esbas_internship_backendproject.Migrations
                     .HasColumnType("nvarchar(max)");
 
                 b.Property<bool>("Status")
-                    .HasColumnType("BIT");
+                    .HasColumnType("bit");
 
                 b.Property<bool>("EventStatus")
-                    .HasColumnType("BIT");
+                    .HasColumnType("bit");
 
                 b.HasKey("EventID");
 
@@ -67,11 +67,11 @@ namespace esbas_internship_backendproject.Migrations
                 b.Property<int>("EventID")
                     .HasColumnType("int");
 
-                b.Property<UniqueId>("CardID")
+                b.Property<int>("CardID")
                     .HasColumnType("int");
 
                 b.Property<bool>("Status")
-                    .HasColumnType("BIT");
+                    .HasColumnType("bit");
 
                 b.HasKey("ID");
 
@@ -84,10 +84,10 @@ namespace esbas_internship_backendproject.Migrations
                     .ValueGeneratedOnAdd()
                     .HasColumnType("int");
 
-                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"), 1L, 1);
+                SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserID"), 1L, 1);
 
-                b.Property<UniqueId>("CardID")
-                  .HasColumnType("int");
+                b.Property<int>("CardID")
+                    .HasColumnType("int");
 
                 b.Property<string>("Department")
                     .HasColumnType("nvarchar(max)");
@@ -98,11 +98,11 @@ namespace esbas_internship_backendproject.Migrations
                 b.Property<string>("Gender")
                     .HasColumnType("nvarchar(max)");
 
-                b.Property<string>("IsOfficeEmployee")
+                b.Property<bool>("IsOfficeEmployee")
                     .HasColumnType("bit");
 
                 b.Property<bool>("Status")
-                    .HasColumnType("BIT");
+                    .HasColumnType("bit");
 
                 b.HasKey("UserID");
 
