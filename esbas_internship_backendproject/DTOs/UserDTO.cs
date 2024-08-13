@@ -12,18 +12,6 @@
         public int UserID { get; set; }
         public string UserRegistrationID { get; set; }
         public int CardID { get; set; }
-
-        [ForeignKey("G_ID")]
-        public int G_ID { get; set; }
-
-        [ForeignKey("MC_ID")]
-        public int MC_ID { get; set; }
-
-        [ForeignKey("OC_ID")]
-        public int OC_ID { get; set; }
-
-        [ForeignKey("DepartmentID")]
-        public int DepartmentID { get; set; }
         public string FullName { get; set; }
         public string Gender { get; set; }
 

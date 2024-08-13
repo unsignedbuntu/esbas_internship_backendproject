@@ -90,7 +90,32 @@ namespace esbas_internship_backendproject
                 .WithMany()
                 .HasForeignKey(u => u.G_ID);
 
-         
+            Modelbuilder.Entity<Users>()
+                .HasOne(u => u.Main_Characteristicts)
+                .WithMany()
+                .HasForeignKey(u => u.MC_ID);
+
+            Modelbuilder.Entity<Users>()
+               .HasOne(u => u.Other_Characteristicts)
+               .WithMany()
+               .HasForeignKey(u => u.OC_ID);
+
+            Modelbuilder.Entity<Users>()
+               .HasOne(u => u.Department)
+               .WithMany()
+               .HasForeignKey(u => u.DepartmentID);
+
+            Modelbuilder.Entity<Department>()
+                .HasOne(d => d.Tasks)
+                .WithMany()
+                .HasForeignKey(d => d.TaskID);
+
+            Modelbuilder.Entity<Department>()
+                .HasOne(d => d.CostCenters)
+                .WithMany()
+                .HasForeignKey(d => d.CostCenterID);
+
+
             base.OnModelCreating(Modelbuilder);
         }
     }

@@ -90,12 +90,15 @@ namespace esbas_internship_backendproject.DTOs_Controllers
                 return NotFound();
             }
             
-       
+            usersResponse.CardID = userResponseDTO.CardID;
+            usersResponse.UserRegistrationID = userResponseDTO.UserRegistrationID;
             usersResponse.FullName = userResponseDTO.FullName;
-            usersResponse.PhoneNumber = userResponseDTO.FullName;
+            usersResponse.Gender = userResponseDTO.Gender;
+            usersResponse.DateOfBirth = userResponseDTO.DateOfBirth;
             usersResponse.MailAddress = userResponseDTO.MailAddress;
+            usersResponse.HireDate = userResponseDTO.HireDate;
+            usersResponse.PhoneNumber = userResponseDTO.PhoneNumber;
             
-           
             _context.SaveChanges();
 
             return Ok(usersResponse);

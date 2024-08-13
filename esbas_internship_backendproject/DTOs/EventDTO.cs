@@ -10,12 +10,6 @@
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int EventID { get; set; }
-
-        [ForeignKey("L_ID")]
-        public int L_ID { get; set; }
-
-        [ForeignKey("T_ID")]
-        public int T_ID { get; set; }
         public string Name { get; set; }
         public string Type { get; set; }
         public string Location { get; set; }

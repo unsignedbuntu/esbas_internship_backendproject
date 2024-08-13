@@ -26,7 +26,7 @@ namespace esbas_internship_backendproject.Controllers
         public IActionResult GetCostCenters()
         {
             var costcenters = _context.CostCenters
-                .Select(d => _mapper.Map<CostCentersDTO>(d))
+                .Select(cc => _mapper.Map<CostCentersDTO>(cc))
                 .ToList();
 
             return Ok(costcenters);
@@ -38,7 +38,7 @@ namespace esbas_internship_backendproject.Controllers
         {
             var costcenters = _context.CostCenters
                 .Where(cc => cc.CostCenterID == id)
-               .Select(d => _mapper.Map<CostCentersDTO>(d))
+               .Select(cc => _mapper.Map<CostCentersDTO>(cc))
                .FirstOrDefault();
 
             if (costcenters == null)

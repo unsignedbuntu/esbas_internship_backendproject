@@ -25,13 +25,13 @@ namespace esbas_internship_backendproject.Controllers
             [Produces("application/json")]
             public IActionResult GetDepartments()
             {
-                var departments = _context.Department
-                    .Include( d => d.CostCenters)
-                    .Include( d => d.Tasks)
-                    .Select(d => _mapper.Map<DepartmentDTO>(d))
-                    .ToList();
-
-                return Ok(departments);
+                   var departments = _context.Department
+                     .Include( d => d.CostCenters)
+                     .Include( d => d.Tasks)
+                     .Select(d => _mapper.Map<DepartmentDTO>(d))
+                     .ToList();
+         
+            return Ok(departments);
             }
 
             [HttpGet("{id}")]
