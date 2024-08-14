@@ -29,6 +29,8 @@
 
         public Event_Type Event_Type { get; set; }
 
+        public List <Events_Users> Users { get; set; }
+
         public Events() { }
     }
 }

@@ -26,6 +26,7 @@ namespace esbas_internship_backendproject.Controllers
         public IActionResult GetCOtherCharacteristicts()
         {
             var Othercharacteristicts = _context.Other_Characteristicts
+                .Where(oc => oc.Status == true)
                 .Select(oc => _mapper.Map<OtherCharacteristictsDTO>(oc))
                 .ToList();
 

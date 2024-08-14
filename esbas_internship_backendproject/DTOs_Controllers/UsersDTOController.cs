@@ -30,6 +30,10 @@ namespace esbas_internship_backendproject.DTOs_Controllers
                 .Include( u => u.Main_Characteristicts)
                 .Include( u => u.Other_Characteristicts)
                 .Include(u => u.Department)
+                .ThenInclude(d => d.CostCenters)
+                .Include(u => u.Department)
+                .ThenInclude(d => d.Tasks)
+                .Where(u => u.Status == true)
                 .Select(u => _mapper.Map<UserDTO>(u))   
                 .ToList();
 

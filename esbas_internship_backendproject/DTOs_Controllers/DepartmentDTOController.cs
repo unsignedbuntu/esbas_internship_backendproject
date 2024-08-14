@@ -28,6 +28,7 @@ namespace esbas_internship_backendproject.Controllers
                    var departments = _context.Department
                      .Include( d => d.CostCenters)
                      .Include( d => d.Tasks)
+                     .Where(d => d.Status == true)
                      .Select(d => _mapper.Map<DepartmentDTO>(d))
                      .ToList();
          

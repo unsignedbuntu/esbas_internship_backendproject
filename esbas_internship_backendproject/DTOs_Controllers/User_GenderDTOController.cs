@@ -24,6 +24,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetUserGenders()
         {
             var userGenders = _context.User_Gender
+                .Where(ug => ug.Status == true)
                 .Select(ug => _mapper.Map<UserGenderDTO>(ug))
                 .ToList();
 

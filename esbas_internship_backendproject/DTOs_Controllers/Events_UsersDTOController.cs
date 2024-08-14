@@ -36,16 +36,27 @@ namespace esbas_internship_backendproject.DTOs_Controllers
                 .Include(eu => eu.User)
                     .ThenInclude(u => u.Other_Characteristicts)
                 .Include(eu => eu.User)
-                  .ThenInclude(u => u.Department)
+                    .ThenInclude(u => u.Department)
                         .ThenInclude(d => d.CostCenters)
                 .Include(eu => eu.User)
-        .           ThenInclude(u => u.Department)
+                    .ThenInclude(u => u.Department)
                         .ThenInclude(d => d.Tasks)
-                .Select(eu => _mapper.Map<EventsUsersDTO>(eu))
+                        .Where(eu => eu.Status == true)
                 .ToList();
-     
 
-            return Ok(eventsusers);
+
+            var groupedEventUsers = eventsusers
+                .GroupBy(eu => eu.Event.EventID)
+                .Select(g => new
+                {
+                    ID = g.First().ID, // İlk öğeden ID'yi alıyoruz.
+                    Status = g.First().Status, // İlk öğeden Status'u alıyoruz.
+                    Event = _mapper.Map<EventDTO>(g.First().Event),// İlk kullanıcıdan etkinlik bilgilerini alır(zaten tüm kullanıcılar aynı etkinlikte olduğundan sorun olmaz).
+                    User = g.Select(eu => _mapper.Map<UserDTO>(eu.User)).ToList()//Her grup için kullanıcıları listeler
+                })
+                .ToList();
+
+            return Ok(groupedEventUsers);
         }
 
 
@@ -71,15 +82,20 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         .ThenInclude(u => u.Department)
                         .ThenInclude(d => d.Tasks)
                 .Where(eu => eu.ID == id)
-                .Select(eu => _mapper.Map<EventsUsersDTO>(eu))
-                .FirstOrDefault();
+                .ToList();
 
-            if (eventsUser == null)
-            {
-                return NotFound();
-            }
+            var groupedEventUsers = eventsUser
+                  .GroupBy(eu => eu.Event.EventID)
+                  .Select(g => new
+                  {
+                      ID = g.First().ID, // İlk öğeden ID'yi alıyoruz.
+                      Status = g.First().Status, // İlk öğeden Status'u alıyoruz.
+                      Event = _mapper.Map<EventDTO>(g.First().Event),// İlk kullanıcıdan etkinlik bilgilerini alır(zaten tüm kullanıcılar aynı etkinlikte olduğundan sorun olmaz).
+                      User = g.Select(eu => _mapper.Map<UserDTO>(eu.User)).ToList()//Her grup için kullanıcıları listeler
+                  })
+                  .ToList();
 
-            return Ok(eventsUser);
+            return Ok(groupedEventUsers);
         }
 
 

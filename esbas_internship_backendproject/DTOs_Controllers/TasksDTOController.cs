@@ -23,6 +23,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetTasks()
         {
             var tasks = _context.Tasks
+                .Where(t => t.Status == true)
                .Select(t => _mapper.Map<TasksDTO>(t))
                .ToList();
 

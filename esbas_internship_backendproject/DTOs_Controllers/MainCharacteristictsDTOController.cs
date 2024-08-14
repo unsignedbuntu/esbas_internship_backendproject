@@ -26,6 +26,7 @@ namespace esbas_internship_backendproject.Controllers
         public IActionResult GetCMainCharacteristicts()
         {
             var maincharacteristicts = _context.Main_Characteristicts
+                .Where(mc => mc.Status == true)
                 .Select(mc => _mapper.Map< MainCharacteristictsDTO>(mc))
                 .ToList();
 

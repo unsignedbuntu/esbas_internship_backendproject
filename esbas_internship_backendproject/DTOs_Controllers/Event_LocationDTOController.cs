@@ -25,6 +25,7 @@ namespace esbas_internship_backendproject.Controllers
         public IActionResult GetEventLocations()
         {
             var eventLocations = _context.Event_Location
+                .Where(el => el.Status == true)
                 .Select(el => _mapper.Map<EventLocationDTO>(el))
                 .ToList();
 

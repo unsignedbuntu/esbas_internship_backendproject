@@ -40,6 +40,8 @@
         public Main_Characteristicts Main_Characteristicts { get; set; }
         public Other_Characteristicts Other_Characteristicts { get; set; }
         public Department Department { get; set; }
+
+        public List<Events_Users> Events { get; set; }
         public Users() { }
     }
 }

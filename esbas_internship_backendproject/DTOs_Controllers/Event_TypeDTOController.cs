@@ -23,6 +23,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetEvents()
         {
             var eventTypes = _context.Event_Type
+                .Where(et => et.Status == true)
                .Select(et => _mapper.Map<EventTypeDTO>(et))
                .ToList();
 
