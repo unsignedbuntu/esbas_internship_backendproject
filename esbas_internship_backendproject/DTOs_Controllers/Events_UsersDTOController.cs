@@ -87,7 +87,7 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
 
             var groupedEventUsersById = eventsusers
-            .Where(eu => eu.EventID == eventid) // Belirli bir EventID'ye göre filtreleme yapıyoruz
+            .Where(eu => eu.EventID == eventid) // Belirli bir EventID'ye göre filtreleme yapıyoruzz
             .GroupBy(eu => eu.Event.EventID)
             .Select(g => new
              {
