@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using esbas_internship_backendproject.Entities;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 
 namespace esbas_internship_backendproject.DTOs_Controllers
@@ -60,46 +61,49 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         }
 
 
-        [HttpGet("{id}")]
+        [HttpGet("{eventid}")]
         [Produces("application/json")]
-        public IActionResult GetEventsUserByID(int id)
+        public IActionResult GetEventsUserByID(int eventid)
         {
-            var eventsUser = _context.Events_Users
-                .Include(eu => eu.Event)
-                    .ThenInclude(e => e.Event_Location)
-                .Include(eu => eu.Event)
-                    .ThenInclude(e => e.Event_Type)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.User_Gender)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.Main_Characteristicts)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.Other_Characteristicts)
-                .Include(eu => eu.User)
-                  .ThenInclude(u => u.Department)
-                        .ThenInclude(d => d.CostCenters)
-                .Include(eu => eu.User)
-        .ThenInclude(u => u.Department)
-                        .ThenInclude(d => d.Tasks)
-                .Where(eu => eu.ID == id)
-                .ToList();
 
-            var groupedEventUsers = eventsUser
-                  .GroupBy(eu => eu.Event.EventID)
-                  .Select(g => new
-                  {
-                      ID = g.First().ID, // İlk öğeden ID'yi alıyoruz.
-                      Status = g.First().Status, // İlk öğeden Status'u alıyoruz.
-                      Event = _mapper.Map<EventDTO>(g.First().Event),// İlk kullanıcıdan etkinlik bilgilerini alır(zaten tüm kullanıcılar aynı etkinlikte olduğundan sorun olmaz).
-                      User = g.Select(eu => _mapper.Map<UserDTO>(eu.User)).ToList()//Her grup için kullanıcıları listeler
-                  })
-                  .ToList();
+            var eventsusers = _context.Events_Users
+          .Include(eu => eu.Event)
+              .ThenInclude(e => e.Event_Location)
+          .Include(eu => eu.Event)
+              .ThenInclude(e => e.Event_Type)
+          .Include(eu => eu.User)
+              .ThenInclude(u => u.User_Gender)
+          .Include(eu => eu.User)
+              .ThenInclude(u => u.Main_Characteristicts)
+          .Include(eu => eu.User)
+              .ThenInclude(u => u.Other_Characteristicts)
+          .Include(eu => eu.User)
+              .ThenInclude(u => u.Department)
+                  .ThenInclude(d => d.CostCenters)
+          .Include(eu => eu.User)
+              .ThenInclude(u => u.Department)
+                  .ThenInclude(d => d.Tasks)
+             .ToList();
 
-            return Ok(groupedEventUsers);
+
+            var groupedEventUsersById = eventsusers
+            .Where(eu => eu.EventID == eventid) // Belirli bir EventID'ye göre filtreleme yapıyoruz
+            .GroupBy(eu => eu.Event.EventID)
+            .Select(g => new
+             {
+             ID = g.First().ID, // İlk öğeden ID'yi alıyoruz.
+             Status = g.First().Status, // İlk öğeden Status'u alıyoruz.
+             Event = _mapper.Map<EventDTO>(g.First().Event), // İlk öğeden etkinlik bilgilerini alıyoruz.
+             User = g.Select(eu => _mapper.Map<UserDTO>(eu.User)).ToList() // Her grup için kullanıcıları listeliyoruz.
+             })
+
+            .FirstOrDefault(); 
+
+            return Ok(groupedEventUsersById);
         }
+  
 
-
-          [HttpPost()]
+        [HttpPost()]
           [Produces("application/json")]
           public IActionResult CreateEventsUsersMap([FromBody] EventsUsersResponseDTO eventsUsersResponseDTO)
           {
