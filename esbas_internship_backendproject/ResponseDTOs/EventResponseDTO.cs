@@ -6,8 +6,6 @@ namespace esbas_internship_backendproject.ResponseDTO
     {
 #nullable disable
         public string Name { get; set; }
-        public string Type { get; set; }
-        public string Location { get; set; }
         public DateTime EventDateTime { get; set; }
 
         [ForeignKey("L_ID")]
@@ -15,5 +13,6 @@ namespace esbas_internship_backendproject.ResponseDTO
 
         [ForeignKey("T_ID")]
         public int T_ID { get; set; }
+       
     }
 }

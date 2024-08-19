@@ -26,16 +26,17 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetUsers()
         {
             var users = _context.Users
-                .Include(u => u.User_Gender)
-                .Include( u => u.Main_Characteristicts)
-                .Include( u => u.Other_Characteristicts)
-                .Include(u => u.Department)
+            .Include(u => u.User_Gender)
+            .Include(u => u.Main_Characteristicts)
+            .Include(u => u.Other_Characteristicts)
+            .Include(u => u.Department)
                 .ThenInclude(d => d.CostCenters)
-                .Include(u => u.Department)
+            .Include(u => u.Department)
                 .ThenInclude(d => d.Tasks)
-                .Where(u => u.Status == true)
-                .Select(u => _mapper.Map<UserDTO>(u))   
-                .ToList();
+             .Where(u => u.Status == true)
+             .Select(u => _mapper.Map<UserDTO>(u))
+            .ToList();
+
 
             return Ok(users);
         }
@@ -45,13 +46,17 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetUser(int id)
         {
             var users = _context.Users
-                .Where(u => u.UserID == id)
-                .Include(u => u.User_Gender)
-                .Include(u => u.Main_Characteristicts)
-                .Include(u => u.Other_Characteristicts)
-                .Include(u => u.Department)
-                .Select(u => _mapper.Map<UserDTO>(u)) 
-                .FirstOrDefault();
+         .Include(u => u.User_Gender)
+         .Include(u => u.Main_Characteristicts)
+         .Include(u => u.Other_Characteristicts)
+         .Include(u => u.Department)
+             .ThenInclude(d => d.CostCenters)
+         .Include(u => u.Department)
+             .ThenInclude(d => d.Tasks)
+           .Where(u => u.UserID == id)
+          .Where(u => u.Status == true)
+          .Select(u => _mapper.Map<UserDTO>(u))
+                 .FirstOrDefault();
 
             if (users == null)
             {
@@ -97,7 +102,6 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             usersResponse.CardID = userResponseDTO.CardID;
             usersResponse.UserRegistrationID = userResponseDTO.UserRegistrationID;
             usersResponse.FullName = userResponseDTO.FullName;
-            usersResponse.Gender = userResponseDTO.Gender;
             usersResponse.DateOfBirth = userResponseDTO.DateOfBirth;
             usersResponse.MailAddress = userResponseDTO.MailAddress;
             usersResponse.HireDate = userResponseDTO.HireDate;

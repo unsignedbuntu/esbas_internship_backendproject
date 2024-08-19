@@ -13,7 +13,7 @@
         public string UserRegistrationID { get; set; }
         public int CardID { get; set; }
 
-        [ForeignKey("G_ID")]
+       [ForeignKey("G_ID")]
         public int G_ID { get; set; }
 
         [ForeignKey("MC_ID")]
@@ -21,12 +21,11 @@
 
         [ForeignKey("OC_ID")]
         public int OC_ID { get; set; }
-
+      
         [ForeignKey("DepartmentID")]
         public int DepartmentID { get; set; }
+      
         public string FullName { get; set; }
-        public string Gender { get; set; }
-
         public DateTime DateOfBirth { get; set; }
 
         public string MailAddress { get; set; }
@@ -40,8 +39,7 @@
         public Main_Characteristicts Main_Characteristicts { get; set; }
         public Other_Characteristicts Other_Characteristicts { get; set; }
         public Department Department { get; set; }
-
-        public List<Events_Users> Events { get; set; }
+        
         public Users() { }
     }
 }

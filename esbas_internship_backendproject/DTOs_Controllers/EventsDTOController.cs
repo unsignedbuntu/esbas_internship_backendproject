@@ -39,10 +39,11 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetEventByID(int id)
         {
             var events = _context.Events
-                .Where(e => e.EventID == id)
-                .Include(e => e.Event_Type)
+               .Include(e => e.Event_Type)
                 .Include(e => e.Event_Location)
-                 .Select(e => _mapper.Map<EventDTO>(e))
+                 .Where(e => e.EventID == id)
+                .Where(e => e.Status == true )
+                .Select(e => _mapper.Map<EventDTO>(e))
                 .FirstOrDefault();
 
             if (events == null)
@@ -104,9 +105,8 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             }
 
             eventsResponse.Name = eventResponseDTO.Name;
-            eventsResponse.Type = eventResponseDTO.Type;
-            eventsResponse.Location = eventResponseDTO.Location;
             eventsResponse.EventDateTime = eventResponseDTO.EventDateTime;
+            
 
             _context.SaveChanges();
 

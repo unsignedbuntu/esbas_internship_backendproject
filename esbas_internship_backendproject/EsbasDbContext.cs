@@ -66,12 +66,12 @@ namespace esbas_internship_backendproject
 
             Modelbuilder.Entity<Events_Users>()
                  .HasOne(eu => eu.Event)
-                 .WithMany(e => e.Users)
+                 .WithMany()
                  .HasForeignKey(eu => eu.EventID);
 
             Modelbuilder.Entity<Events_Users>()
                 .HasOne(eu => eu.User)
-                .WithMany(u => u.Events)
+                .WithMany()
                 .HasForeignKey(eu => eu.CardID)
                 .HasPrincipalKey(u => u.CardID);
 

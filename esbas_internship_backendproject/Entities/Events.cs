@@ -17,9 +17,9 @@
 
         [ForeignKey("T_ID")]
         public int T_ID { get; set; }
+       
         public string Name { get; set; }
-        public string Type { get; set; }
-        public string Location { get; set; }
+
         public DateTime EventDateTime { get; set; } = DateTime.SpecifyKind(DateTime.UtcNow, DateTimeKind.Utc);
 
         public bool Status { get; set; } = true;
@@ -28,8 +28,6 @@
         public Event_Location Event_Location { get; set; }
 
         public Event_Type Event_Type { get; set; }
-
-        public List <Events_Users> Users { get; set; }
 
         public Events() { }
     }

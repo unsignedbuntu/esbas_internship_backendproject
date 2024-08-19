@@ -12,6 +12,6 @@ namespace esbas_internship_backendproject.ResponseDTOs
 
         [ForeignKey("TaskID")]
         public int TaskID { get; set; }
-
+       
     }
 }

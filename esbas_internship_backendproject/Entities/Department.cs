@@ -24,5 +24,6 @@ namespace esbas_internship_backendproject.Entities
         public CostCenters CostCenters { get; set; }
 
         public Tasks Tasks { get; set; }
+       
     }
 }

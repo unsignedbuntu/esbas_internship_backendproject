@@ -26,28 +26,37 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         public IActionResult GetEventsUsers()
         {
             var eventsusers = _context.Events_Users
-                .Include(eu => eu.Event)
-                    .ThenInclude(e => e.Event_Location)
-                .Include(eu => eu.Event)
-                    .ThenInclude(e => e.Event_Type)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.User_Gender)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.Main_Characteristicts)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.Other_Characteristicts)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.Department)
-                        .ThenInclude(d => d.CostCenters)
-                .Include(eu => eu.User)
-                    .ThenInclude(u => u.Department)
-                        .ThenInclude(d => d.Tasks)
-                        .Where(eu => eu.Status == true)
-                .ToList();
+     .Include(eu => eu.Event)
+         .ThenInclude(e => e.Event_Location)
+
+     .Include(eu => eu.Event)
+         .ThenInclude(e => e.Event_Type)
+
+     .Include(eu => eu.User)
+         .ThenInclude(u => u.User_Gender)
+        
+     .Include(eu => eu.User)
+         .ThenInclude(u => u.Main_Characteristicts)
+   
+     .Include(eu => eu.User)
+         .ThenInclude(u => u.Other_Characteristicts)
+
+     .Include(eu => eu.User)
+       
+            .ThenInclude(u => u.Department)
+             .ThenInclude(d => d.CostCenters)
+     .Include(eu => eu.User)
+         .ThenInclude(u => u.Department)
+             .ThenInclude(d => d.Tasks)
+     .Where(eu => eu.Status == true)
+     .OrderBy(eu => eu.Event.EventID) // Sorting by EventID
+     .ToList();
+
 
 
             var groupedEventUsers = eventsusers
                 .GroupBy(eu => eu.Event.EventID)
+                
                 .Select(g => new
                 {
                     ID = g.First().ID, // İlk öğeden ID'yi alıyoruz.
@@ -67,23 +76,29 @@ namespace esbas_internship_backendproject.DTOs_Controllers
         {
 
             var eventsusers = _context.Events_Users
-          .Include(eu => eu.Event)
-              .ThenInclude(e => e.Event_Location)
-          .Include(eu => eu.Event)
-              .ThenInclude(e => e.Event_Type)
-          .Include(eu => eu.User)
-              .ThenInclude(u => u.User_Gender)
-          .Include(eu => eu.User)
-              .ThenInclude(u => u.Main_Characteristicts)
-          .Include(eu => eu.User)
-              .ThenInclude(u => u.Other_Characteristicts)
-          .Include(eu => eu.User)
-              .ThenInclude(u => u.Department)
-                  .ThenInclude(d => d.CostCenters)
-          .Include(eu => eu.User)
-              .ThenInclude(u => u.Department)
-                  .ThenInclude(d => d.Tasks)
-             .ToList();
+              .Include(eu => eu.Event)
+                  .ThenInclude(e => e.Event_Location)
+
+              .Include(eu => eu.Event)
+                  .ThenInclude(e => e.Event_Type)
+
+              .Include(eu => eu.User)
+                  .ThenInclude(u => u.User_Gender)
+
+              .Include(eu => eu.User)
+                  .ThenInclude(u => u.Main_Characteristicts)
+
+              .Include(eu => eu.User)
+                  .ThenInclude(u => u.Other_Characteristicts)
+
+              .Include(eu => eu.User)
+
+                     .ThenInclude(u => u.Department)
+                      .ThenInclude(d => d.CostCenters)
+              .Include(eu => eu.User)
+                  .ThenInclude(u => u.Department)
+                      .ThenInclude(d => d.Tasks)
+              .ToList();
 
 
             var groupedEventUsersById = eventsusers
@@ -101,25 +116,28 @@ namespace esbas_internship_backendproject.DTOs_Controllers
 
             return Ok(groupedEventUsersById);
         }
-  
 
-        [HttpPost()]
-          [Produces("application/json")]
-          public IActionResult CreateEventsUsersMap([FromBody] EventsUsersResponseDTO eventsUsersResponseDTO)
-          {
-              if (eventsUsersResponseDTO == null || !ModelState.IsValid)
-              {
-                  return BadRequest(ModelState); 
-              }
 
-            var event_UsersResponse = _mapper.Map<Events_Users>(eventsUsersResponseDTO);
+         [HttpPost()]
+         [Produces("application/json")]
+         public IActionResult CreateEventsUsersMap([FromBody] EventsUsersResponseDTO eventsUsersResponseDTO)
+         {
+             if (eventsUsersResponseDTO == null || !ModelState.IsValid)
+             {
+                 return BadRequest(ModelState); 
+             }
 
-              _context.Events_Users.Add(event_UsersResponse);
-              _context.SaveChanges();
+           var event_UsersResponse = _mapper.Map<Events_Users>(eventsUsersResponseDTO);
 
-              return Ok(event_UsersResponse);
-          }
-        
+            Console.WriteLine($"Mapped EventID: {event_UsersResponse.EventID}, Mapped CardID: {event_UsersResponse.CardID}");
+
+            _context.Events_Users.Add(event_UsersResponse);
+             _context.SaveChanges();
+
+             return Ok(event_UsersResponse);
+         }
+     
+
 
         [HttpPut("{id}")]
         [Produces("application/json")]
@@ -146,11 +164,11 @@ namespace esbas_internship_backendproject.DTOs_Controllers
             return Ok(eventsUsersResponse);
         }
 
-        [HttpDelete("SoftDelete{id}")]
+        [HttpDelete("SoftDelete/{eventID}/{cardID}")]
         [Produces("application/json")]
-        public IActionResult SoftDeleteEventsUsers(int id)
+        public IActionResult SoftDeleteEventsUsers(int eventID, int cardID)
         {
-            var eventsUsers = _context.Events_Users.FirstOrDefault(eu => eu.ID == id);
+            var eventsUsers = _context.Events_Users.FirstOrDefault(eu => eu.EventID == eventID && eu.CardID == cardID );
 
             if (eventsUsers == null)
             {
