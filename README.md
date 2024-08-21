@@ -36,4 +36,16 @@ Provide instructions on how to set up the project locally. Include prerequisites
 1. Clone the repository:
    ```bash
    git clone https://github.com/unsignedbuntu/esbas_internship_backendproject.git
+
+## Photos of the Project
+![image](https://github.com/user-attachments/assets/7a0ecd61-8c1d-4f9d-a5c9-2fa1bf4217b6)
+![image](https://github.com/user-attachments/assets/9cd162e7-4868-464a-bd09-096e131853a3)
+![image](https://github.com/user-attachments/assets/a5b1a2e2-8d15-4799-99a0-b0e3a0697f79)
+![image](https://github.com/user-attachments/assets/e6b4b236-89b9-4fad-8df4-902e302004c7)
+![image](https://github.com/user-attachments/assets/2e629a3c-b9b0-403d-96b4-577a86aed8c3)
+
+
+
+
+
    cd esbas_internship_backendproject
