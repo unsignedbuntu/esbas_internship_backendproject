@@ -105,7 +105,7 @@ namespace esbas_internship_backendproject.Controllers
             // Kaydın durumunu "deleted" olarak günceller.
             costCenters.Status = false;
 
-
+            //son hali
             _context.CostCenters.Update(costCenters);
             _context.SaveChanges();
 
