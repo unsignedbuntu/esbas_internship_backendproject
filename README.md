@@ -45,7 +45,3 @@ Provide instructions on how to set up the project locally. Include prerequisites
 ![image](https://github.com/user-attachments/assets/2e629a3c-b9b0-403d-96b4-577a86aed8c3)
 
 
-
-
-
-   cd esbas_internship_backendproject
